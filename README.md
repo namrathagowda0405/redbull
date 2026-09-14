@@ -1,106 +1,64 @@
-# Red Bull
+﻿# Red Bull — Official Experience Platform
 
-## Overview
-
-A premium interactive website inspired by the Red Bull brand, showcasing Formula 1, energy drinks, athletes, stories, events, culture, and gallery through modern web interactions and animations.
+A premium interactive website inspired by Oracle Red Bull Racing and the World of Red Bull, featuring Formula 1 (RB21), energy drinks, athletes, featured stories, events, culture, and interactive galleries.
 
 ## Features
 
-- Cinematic Hero Section
-- Cursor Spotlight Effect
-- Cursor Energy Trail
-- Golden Hour Mode
-- Scroll Reveal Animations
-- Interactive Hover Effects
-- Parallax Effects
-- Smooth Section Transitions
-- Responsive Design
-
-## Website Sections
-
-- Hero
-- Formula 1
-- Energy Drinks
-- Stories
-- Events
-- Athletes
-- Culture
-- Gallery
-- Footer
+- **Hero Formula 1 Experience**:
+  - Interactive Oracle Red Bull Racing RB21 showcase
+  - Locked studio spotlight and luxury F1 advertisement lighting
+  - Live telemetry HUD, circuit schematics, and CAD blueprint design elements
+  - Dynamic Golden Hour race mode toggle
+- **Unified Red Bull Energy Trail**:
+  - Gold, orange, and white glowing particle trail on cursor movement and page scroll
+- **Full Product & Brand Showcase**:
+  - Complete Energy Drinks line-up with vibrant interactive can stages
+  - World of Red Bull featured stories
+  - Official Red Bull events and athlete roster
+  - Curated high-octane media gallery
+- **Fluid Micro-Interactions**:
+  - Smooth section transitions with deep navy and racing orange gradients
+  - Staggered scroll reveal animations
+  - Magnetic buttons with speed-line trails
 
 ## Tech Stack
 
-- HTML5
-- CSS3
-- JavaScript (Vanilla)
-
-> The repository is also configured to run the current Next.js project without changing its website experience.
+- **HTML5**: Semantic, accessible structure
+- **CSS3**: Modern CSS variables, glassmorphism, responsive flexbox & grid
+- **JavaScript**: Pure Vanilla JS for 60fps animations and interactions
 
 ## Project Structure
 
-```text
+`	ext
 redbull/
-├── app/
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx
-├── components/
-│   └── ui/
-│       └── button.tsx
-├── lib/
-│   └── utils.ts
-├── public/
-│   ├── apple-icon.png
-│   ├── icon-dark-32x32.png
-│   ├── icon-light-32x32.png
-│   ├── icon.svg
-│   └── project assets
-├── .gitignore
-├── LICENSE
-├── next.config.mjs
-├── package.json
-├── pnpm-lock.yaml
-├── postcss.config.mjs
-└── README.md
-```
+├── assets/                  # Images, athletes, cans, vehicles, and icons
+├── index.html               # Main landing page entry point
+├── style.css                # Master styling and animations
+├── script.js                # Interactions, particle engine, and theme toggles
+├── .gitignore               # Ignored dependencies and cache files
+├── LICENSE                  # MIT License
+└── README.md                # Project documentation
+`
 
 ## Getting Started
 
-For the static HTML/CSS/JavaScript version, run the project with a local Live Server extension or open `index.html` directly in a browser.
+Open index.html directly in any modern web browser, or serve it locally using any static file server:
 
-For the included Next.js project:
+`ash
+# Using Python
+python -m http.server 3000
 
-```bash
-pnpm install
-pnpm dev
-```
-
-Then open the local URL shown by Next.js.
+# Using Node.js (npx)
+npx serve .
+`
 
 ## Deployment
 
-The project is ready for deployment on Vercel. Import the repository into Vercel and use the default Next.js build settings.
+This website is a zero-config static site. It can be deployed instantly to:
 
-## Screenshots
-
-Add screenshots to `screenshots/` as the project evolves:
-
-- Hero — `screenshots/hero.png`
-- Formula 1 — `screenshots/formula1.png`
-- Energy Drinks — `screenshots/energy-drinks.png`
-- Stories — `screenshots/stories.png`
-- Events — `screenshots/events.png`
-- Athletes — `screenshots/athletes.png`
-- Culture — `screenshots/culture.png`
-- Gallery — `screenshots/gallery.png`
-- Golden Hour Mode — `screenshots/golden-hour.png`
-
-## Future Enhancements
-
-- Live Red Bull event countdown
-- Dynamic athlete profiles
-- Interactive gallery filtering
-- Additional editorial animations
+- **Vercel**: Import repository and deploy with default settings (Root directory: ./).
+- **Netlify**: Connect repository and set publish directory to . or root.
+- **GitHub Pages**: Enable Pages under repository settings pointing to main branch root.
 
 ## License
 

@@ -1,0 +1,4388 @@
+/* ==========================================================================
+   RED BULL RACING EXPERIENCE 2026 — MASTER CAMPAIGN STYLESHEET
+   100% Pure Vanilla CSS3 (Custom Properties, 3D Transforms, Glassmorphism)
+   ========================================================================== */
+
+:root {
+  /* Primary Brand Palette */
+  --midnight-navy: #061120;
+  --racing-blue: #003B8E;
+  --redbull-red: #E10600;
+  --redbull-red-glow: rgba(225, 6, 0, 0.5);
+
+  /* Secondary Accents */
+  --cloud-white: #FFFFFF;
+  --silver-metallic: #C8CDD8;
+  --gold-sunset: #FFB800;
+  --gold-sunset-glow: rgba(255, 184, 0, 0.45);
+  --ice-blue-glow: #00A8E8;
+  --ice-blue-shadow: rgba(0, 168, 232, 0.45);
+
+  /* Surface & Neutral Tokens */
+  --surface-pitch: #040A14;
+  --surface-card: #0A1428;
+  --surface-card-hover: #101E3A;
+  --subtle-slate: #8A99AD;
+  --border-glass: rgba(255, 255, 255, 0.12);
+  --border-gold: rgba(255, 184, 0, 0.35);
+
+  /* Dynamic Edition Colors (Updated via JS on flavor focus) */
+  --edition-color: #003B8E;
+  --edition-glow: rgba(0, 59, 142, 0.45);
+  --edition-bg: radial-gradient(circle at 50% 35%, rgba(0, 59, 142, 0.28) 0%, rgba(6, 17, 32, 0.98) 75%);
+
+  /* Typography */
+  --font-racing: 'Bebas Neue', cursive, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-display: 'Poppins', sans-serif;
+
+  /* Layout */
+  --max-width: 1440px;
+  --nav-height: 84px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+
+  /* Unified Card System Tokens */
+  --card-radius: 20px;
+  --card-shadow-base: 0 18px 45px rgba(0, 0, 0, 0.65);
+  --card-shadow-hover: 0 25px 65px rgba(0, 0, 0, 0.75), 0 0 24px rgba(255, 184, 0, 0.22), 0 0 48px rgba(0, 168, 232, 0.12);
+  --card-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Physics Easings */
+  --ease-f1: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Theme 1: Golden Hour Race (Default) */
+body.theme-golden-hour {
+  --bg-base: #061120;
+  --hero-light-tint: rgba(255, 184, 0, 0.18);
+  --track-tint: rgba(14, 22, 40, 0.85);
+  --headlight-beam: rgba(255, 225, 140, 0.9);
+  --headlight-flare: rgba(255, 184, 0, 0.65);
+  --curb-accent: #FFB800;
+}
+
+/* Theme 2: Night Grand Prix (Singapore / Las Vegas Lights) */
+body.theme-night-gp {
+  --bg-base: #02050B;
+  --hero-light-tint: rgba(0, 168, 232, 0.22);
+  --track-tint: rgba(4, 8, 16, 0.94);
+  --headlight-beam: rgba(220, 245, 255, 0.98);
+  --headlight-flare: rgba(0, 168, 232, 0.75);
+  --curb-accent: #00A8E8;
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--bg-base);
+  color: var(--cloud-white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #030814;
+  background-image: 
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(6, 20, 48, 0.65) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(0, 59, 142, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 80% 60%, rgba(0, 59, 142, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 90% 70% at 50% 90%, rgba(6, 20, 48, 0.55) 0%, transparent 60%),
+    linear-gradient(180deg, #040A16 0%, #020610 25%, #050E1E 50%, #020610 75%, #040A16 100%);
+  background-attachment: fixed;
+  color: var(--cloud-white);
+  line-height: 1.55;
+  overflow-x: hidden;
+  transition: background-color 0.6s var(--ease-smooth);
+}
+
+/* Ambient Grain */
+.ambient-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Global Cursor Spotlight */
+.global-cursor-spotlight {
+  position: fixed;
+  width: 650px;
+  height: 650px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 184, 0, 0.15) 0%, rgba(0, 59, 142, 0.08) 45%, transparent 70%);
+  mix-blend-mode: screen;
+  transition: opacity 0.3s ease;
+}
+
+body.theme-night-gp .global-cursor-spotlight {
+  background: radial-gradient(circle, rgba(0, 168, 232, 0.2) 0%, rgba(225, 6, 0, 0.08) 45%, transparent 70%);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2.2rem;
+}
+
+/* Typographic Helpers */
+h1,
+h2,
+h3,
+h4,
+.brand-title,
+.section-mega-title,
+.hero-giant-title,
+.drink-heading,
+.story-headline,
+.featured-title,
+.category-title {
+  font-family: var(--font-racing);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.text-gold {
+  color: var(--gold-sunset) !important;
+}
+
+.text-cyan {
+  color: var(--ice-blue-glow) !important;
+}
+
+.text-pink {
+  color: #E64980 !important;
+}
+
+.text-red {
+  color: var(--redbull-red) !important;
+}
+
+.text-green {
+  color: #2ECC71 !important;
+}
+
+.text-metallic {
+  color: var(--silver-metallic) !important;
+}
+
+.text-racing-blue {
+  color: #2575FC !important;
+}
+
+/* Pulse Beacon */
+.pulse-beacon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--redbull-red);
+  box-shadow: 0 0 10px var(--redbull-red);
+  animation: beaconPulse 1.8s infinite;
+}
+
+@keyframes beaconPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(0.8);
+    opacity: 0.4;
+  }
+}
+
+/* ==========================================================================
+   SMOOTH SECTION FLOW TRANSITIONS & AMBIENT BLENDERS
+   ========================================================================== */
+.section-flow-transition {
+  position: relative;
+  width: 100%;
+  height: 54px;
+  margin: -27px 0;
+  pointer-events: none;
+  z-index: 4;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Deep navy blue fading into black and back into blue */
+.flow-transition-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(2, 6, 16, 0.82) 50%,
+    transparent 100%
+  );
+}
+
+/* Blurred radial gradient (subtle cool blue halo) */
+.flow-transition-radial {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(520px, 75vw, 1300px);
+  height: 48px;
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 50%,
+    rgba(0, 168, 232, 0.12) 0%,
+    rgba(6, 17, 34, 0.14) 50%,
+    transparent 75%
+  );
+  filter: blur(20px);
+}
+
+/* Subtle warm orange highlight bloom where sections meet */
+.flow-transition-bloom {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(300px, 48vw, 760px);
+  height: 38px;
+  background: radial-gradient(
+    ellipse 50% 40% at 50% 50%,
+    rgba(255, 122, 0, 0.14) 0%,
+    rgba(255, 184, 0, 0.05) 45%,
+    transparent 70%
+  );
+  filter: blur(18px);
+  opacity: 0.88;
+}
+
+/* Soft connecting light beam passing through center */
+.flow-transition-beam {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 168, 232, 0.12) 20%,
+    rgba(255, 184, 0, 0.35) 48%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 184, 0, 0.35) 52%,
+    rgba(0, 168, 232, 0.12) 80%,
+    transparent 100%
+  );
+  opacity: 0.40;
+  filter: drop-shadow(0 0 6px rgba(255, 184, 0, 0.3));
+}
+
+/* ==========================================================================
+   NAVIGATION BAR — PADDOCK PIT-WALL
+   ========================================================================== */
+.paddock-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  z-index: 100;
+  background: transparent;
+  transition: all 0.4s var(--ease-f1);
+}
+
+.paddock-navbar.scrolled {
+  background: rgba(6, 17, 32, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border-glass);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+}
+
+.nav-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  text-decoration: none;
+  color: var(--cloud-white);
+}
+
+.brand-bulls-logo {
+  width: 46px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+}
+
+.brand-bulls-logo svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 10px rgba(255, 184, 0, 0.5));
+}
+
+.brand-text-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-size: 1.4rem;
+  line-height: 0.95;
+  color: var(--cloud-white);
+}
+
+.brand-sub {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--gold-sunset);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+  list-style: none;
+}
+
+.nav-item {
+  font-family: var(--font-racing);
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  color: var(--cloud-white);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--redbull-red);
+  box-shadow: 0 0 8px var(--redbull-red);
+  transition: width 0.3s var(--ease-f1);
+}
+
+.nav-item:hover {
+  color: var(--gold-sunset);
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Theme Switcher */
+.btn-theme-mode {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-glass);
+  color: var(--cloud-white);
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-racing);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s var(--ease-f1);
+}
+
+.btn-theme-mode:hover {
+  background: rgba(255, 184, 0, 0.16);
+  border-color: var(--gold-sunset);
+  color: var(--gold-sunset);
+  transform: translateY(-2px);
+}
+
+.theme-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile Hamburger */
+.mobile-hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-hamburger-btn span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: var(--cloud-white);
+  transition: all 0.3s ease;
+}
+
+/* Mobile Drawer */
+.mobile-drawer {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 17, 32, 0.98);
+  backdrop-filter: blur(28px);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s var(--ease-f1);
+}
+
+.mobile-drawer.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.mobile-nav-link {
+  font-family: var(--font-racing);
+  font-size: 2.6rem;
+  letter-spacing: 0.06em;
+  color: var(--cloud-white);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+  color: var(--gold-sunset);
+}
+
+/* ==========================================================================
+   SECTION 1: HERO — FORMULA 1 EXPERIENCE (ORACLE RED BULL RACING RB21)
+   ========================================================================== */
+.f1-hero-stage {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: calc(var(--nav-height) + 1.2rem);
+  padding-bottom: 0.5rem;
+  overflow: hidden;
+  background-color: var(--midnight-navy);
+}
+
+/* ==========================================================================
+   "SPEED MEETS SHADOW" — EDITORIAL F1 POSTER BACKDROP
+   ========================================================================== */
+.hero-editorial-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  background-color: var(--midnight-navy);
+  background:
+    radial-gradient(ellipse 80% 65% at 50% 45%, #0B1E38 0%, #061122 55%, #030812 100%);
+}
+
+/* Deep Midnight Blue Subtle Carbon-Fiber Weave Texture */
+.editorial-carbon-texture {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(45deg, rgba(0, 0, 0, 0.28) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.28) 75%, rgba(0, 0, 0, 0.28)),
+    linear-gradient(45deg, rgba(0, 0, 0, 0.28) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.28) 75%, rgba(0, 0, 0, 0.28));
+  background-size: 8px 8px;
+  background-position: 0 0, 4px 4px;
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Poster Vignette Around the Edges */
+.editorial-poster-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 82% at 50% 50%, transparent 45%, rgba(3, 8, 18, 0.5) 75%, rgba(1, 4, 10, 0.92) 100%);
+  pointer-events: none;
+}
+
+/* FIX 1: Gradual Scroll Overlay (Capped Strictly at 35% Max Opacity) */
+.hero-scroll-dimmer-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 8, 18, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.15s ease-out;
+}
+
+/* Subtle Floating Golden Particles (Background Only) */
+.hero-golden-particles-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   PREMIUM HERO BACKGROUND & EDITORIAL F1 ELEMENTS
+   ========================================================================== */
+
+/* Flanked Header Row (Desktop: 3 columns; Tablet/Mobile: balanced responsive) */
+.hero-header-flank-row {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  z-index: 6;
+}
+
+/* Flanking Side Columns */
+.hero-flank-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 3.5vh, 3.5rem);
+  flex: 0 0 clamp(170px, 16vw, 220px);
+  max-width: 230px;
+  z-index: 5;
+}
+
+.hero-flank-left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hero-flank-right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* 1. Left Side (Top): Small Vertical Editorial Card */
+.hero-editorial-card-left {
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.85rem 1.15rem;
+  background: rgba(6, 17, 34, 0.78);
+  border: 1px solid rgba(255, 138, 0, 0.35);
+  border-left: 3px solid #FF8A00;
+  border-radius: 4px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(255, 138, 0, 0.15);
+  animation: heroDecorFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.editorial-card-team {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+
+.editorial-card-line {
+  width: 38px;
+  height: 2px;
+  background: #FF8A00;
+  margin: 0.25rem 0;
+  box-shadow: 0 0 8px rgba(255, 138, 0, 0.8);
+}
+
+.editorial-card-season {
+  font-family: var(--font-body);
+  font-size: 0.60rem;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  color: #FF8A00;
+  text-transform: uppercase;
+}
+
+.editorial-card-sub {
+  font-family: var(--font-body);
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+}
+
+/* 2. Bottom-Left Corner: Miniature Track Layout (Spielberg Red Bull Ring) */
+.hero-corner-graphic-left {
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem 1rem;
+  background: rgba(6, 17, 34, 0.75);
+  border: 1px solid rgba(0, 168, 240, 0.28);
+  border-left: 3px solid #00A8F0;
+  border-radius: 4px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(0, 168, 240, 0.12);
+  animation: heroDecorFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.corner-graphic-title {
+  font-family: var(--font-heading);
+  font-size: 0.54rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+}
+
+.corner-track-svg {
+  width: 125px;
+  height: 58px;
+  overflow: visible;
+  filter: drop-shadow(0 0 8px rgba(255, 138, 0, 0.4));
+}
+
+.track-path-line {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 0;
+  animation: trackLineTrace 10s linear infinite alternate;
+}
+
+@keyframes trackLineTrace {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 40; }
+}
+
+.corner-track-name {
+  font-family: var(--font-body);
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* 3. Right Side (Top): Tiny Telemetry HUD Labels */
+.hero-telemetry-panel-right {
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.85rem 1.15rem;
+  background: rgba(6, 17, 34, 0.78);
+  border: 1px solid rgba(0, 168, 240, 0.32);
+  border-right: 3px solid #FF8A00;
+  border-radius: 4px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  text-align: right;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(255, 138, 0, 0.15);
+  animation: heroDecorFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.telem-hud-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-size: 0.60rem;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+}
+
+.telem-hud-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FF8A00;
+  box-shadow: 0 0 8px #FF8A00;
+  animation: telemPulse 2s ease-in-out infinite;
+}
+
+@keyframes telemPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.telem-hud-key {
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 600;
+}
+
+.telem-hud-val {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.telem-hud-accent {
+  color: #FF8A00 !important;
+  font-weight: 800;
+  text-shadow: 0 0 10px rgba(255, 138, 0, 0.5);
+}
+
+/* 4. Bottom-Right Corner: Circular Telemetry Ring with Slow Rotation */
+.hero-corner-graphic-right {
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.85rem;
+  padding: 0.75rem 1rem;
+  background: rgba(6, 17, 34, 0.75);
+  border: 1px solid rgba(255, 138, 0, 0.28);
+  border-right: 3px solid #FF8A00;
+  border-radius: 4px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(255, 138, 0, 0.12);
+  animation: heroDecorFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.corner-telemetry-dial {
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+}
+
+.telemetry-dial-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.telemetry-rotating-ring {
+  transform-origin: 40px 40px;
+  animation: telemetryRingRotate 25s linear infinite;
+}
+
+@keyframes telemetryRingRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.corner-telemetry-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-align: right;
+}
+
+.telemetry-meta-title {
+  font-family: var(--font-heading);
+  font-size: 0.54rem;
+  font-weight: 800;
+  letter-spacing: 0.20em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.telemetry-meta-status {
+  font-family: var(--font-body);
+  font-size: 0.50rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #FF8A00;
+}
+
+/* 5. Soft Blue & Orange Light Blooms Behind Title */
+.hero-title-light-blooms {
+  position: absolute;
+  inset: -60px -80px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.title-bloom-blue {
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: clamp(340px, 40vw, 560px);
+  height: clamp(180px, 22vw, 300px);
+  background: radial-gradient(ellipse at center, rgba(0, 168, 240, 0.25) 0%, rgba(0, 168, 240, 0.08) 50%, transparent 72%);
+  filter: blur(55px);
+  pointer-events: none;
+  transform: translateZ(0);
+}
+
+.title-bloom-orange {
+  position: absolute;
+  bottom: 15%;
+  right: 20%;
+  width: clamp(300px, 35vw, 500px);
+  height: clamp(160px, 20vw, 280px);
+  background: radial-gradient(ellipse at center, rgba(255, 138, 0, 0.20) 0%, rgba(255, 138, 0, 0.06) 50%, transparent 72%);
+  filter: blur(55px);
+  pointer-events: none;
+  transform: translateZ(0);
+}
+
+/* 6. Subtle Floating Blueprint Design Elements (Strictly 5–10% Opacity) */
+.hero-title-blueprint-decor {
+  position: absolute;
+  inset: -20px -40px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.blueprint-vector {
+  position: absolute;
+  width: 150px;
+  height: 38px;
+  opacity: 0.35;
+  filter: drop-shadow(0 0 6px rgba(0, 168, 240, 0.35));
+}
+
+.vector-left {
+  top: 26%;
+  left: -24px;
+}
+
+.vector-right {
+  bottom: 30%;
+  right: -24px;
+}
+
+.blueprint-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #FFD54F;
+  opacity: 0.65;
+  box-shadow: 0 0 8px #FFD54F;
+  animation: blueprintDotFloat 8s ease-in-out infinite alternate;
+}
+
+.dot-top-left { top: 12%; left: 8%; animation-delay: 0s; }
+.dot-top-right { top: 16%; right: 8%; animation-delay: 2s; }
+.dot-bottom-left { bottom: 22%; left: 6%; animation-delay: 4s; }
+.dot-bottom-right { bottom: 16%; right: 10%; animation-delay: 1s; }
+
+@keyframes blueprintDotFloat {
+  0% { transform: translateY(0px); opacity: 0.55; }
+  100% { transform: translateY(-8px); opacity: 0.85; }
+}
+
+.blueprint-cross {
+  position: absolute;
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.35);
+  user-select: none;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+.cross-tl { top: 8%; left: 16%; }
+.cross-tr { top: 14%; right: 14%; }
+.cross-bl { bottom: 20%; left: 14%; }
+.cross-br { bottom: 12%; right: 16%; }
+
+.blueprint-hex {
+  position: absolute;
+  width: 26px;
+  height: 30px;
+  opacity: 0.40;
+  animation: blueprintHexRotate 50s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(0, 168, 240, 0.3));
+}
+
+.hex-left {
+  top: 36%;
+  left: -28px;
+}
+
+.hex-right {
+  top: 44%;
+  right: -28px;
+  animation-direction: reverse;
+}
+
+@keyframes blueprintHexRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes heroDecorFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Handling: Graceful wrap on smaller viewports, NEVER hidden with display:none */
+@media (max-width: 980px) {
+  .hero-header-flank-row {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-flank-col {
+    flex: 1 1 45%;
+    max-width: 420px;
+    flex-direction: row;
+    gap: 1.2rem;
+    align-items: center;
+  }
+  .hero-flank-left {
+    order: 2;
+    justify-content: center;
+  }
+  .hero-flank-right {
+    order: 3;
+    justify-content: center;
+  }
+  .hero-editorial-center {
+    order: 1;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-flank-col {
+    flex: 1 1 100%;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.8rem;
+  }
+  .hero-telemetry-panel-right {
+    text-align: center;
+  }
+  .corner-telemetry-meta {
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
+   UNIFIED RED BULL ENERGY TRAIL (CURSOR MOTION & PAGE SCROLL)
+   ========================================================================== */
+.global-energy-trail {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 99999;
+}
+
+.energy-trail-particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: energyTrailFade 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes energyTrailFade {
+  0% {
+    opacity: var(--particle-initial-opacity, 0.72);
+    transform: translate(calc(-50% + var(--dx-start, 0px)), calc(-50% + var(--dy-start, 0px))) scale(1);
+  }
+  35% {
+    opacity: calc(var(--particle-initial-opacity, 0.72) * 0.75);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx-end, 0px)), calc(-50% + var(--dy-end, -18px))) scale(0.25);
+  }
+}
+
+/* Master Hero Layout (Centered Editorial + ~60% Viewport RB21 Car Stage) */
+.hero-f1-layout {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  gap: 1.6rem;
+  width: 100%;
+  text-align: center;
+  padding: 0.6rem 0 1rem;
+}
+
+.hero-editorial-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+/* Small and Elegant Red Bull Orange/Gold Badge (Glassmorphism) */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-sunset);
+  background: rgba(6, 17, 32, 0.68);
+  border: 1px solid rgba(255, 184, 0, 0.42);
+  padding: 0.42rem 1.25rem;
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(255, 184, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: all 0.35s var(--ease-f1);
+}
+
+.badge-bullet-icon {
+  color: #FF7A00;
+  font-size: 0.8rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 8px #FF7A00);
+  animation: pulseBullet 2s infinite ease-in-out;
+}
+
+@keyframes pulseBullet {
+
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(0.92);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 12px #FF5500);
+  }
+}
+
+.badge-headline-text {
+  background: linear-gradient(90deg, #FFFFFF 0%, #FFD166 40%, #FFB800 80%, #FF7A00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.hero-badge:hover {
+  background: rgba(6, 17, 32, 0.85);
+  border-color: rgba(255, 184, 0, 0.85);
+  box-shadow: 0 10px 35px rgba(255, 184, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Main Title: RED BULL (Largest Text on Website) */
+.hero-giant-title {
+  font-size: clamp(5.4rem, 13vw, 11.2rem);
+  line-height: 0.84;
+  letter-spacing: 0.04em;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 1.2rem 0 0.35rem;
+  /* Generous whitespace */
+}
+
+.title-brand-main {
+  color: var(--cloud-white);
+  text-shadow: 0 6px 45px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 59, 142, 0.4);
+}
+
+/* Tagline: BORN TO PUSH LIMITS. (Directly Below in Bold Red-Orange Gradient) */
+.hero-tagline-gradient {
+  font-family: var(--font-racing);
+  font-size: clamp(1.75rem, 3.8vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #FFB800 0%, #FF5A00 35%, #E10600 75%, #FF2020 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 22px rgba(255, 90, 0, 0.7)) drop-shadow(0 8px 45px rgba(225, 6, 0, 0.8));
+  margin: 0.35rem 0 1.25rem;
+  line-height: 1.05;
+}
+
+/* Description: Strictly Two Lines with Generous Spacing */
+.hero-subheading {
+  font-size: 1.12rem;
+  color: var(--silver-metallic);
+  max-width: 680px;
+  line-height: 1.75;
+  margin: 0 auto 1.6rem;
+  letter-spacing: 0.015em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+  text-wrap: balance;
+}
+
+/* Hero Entrance Staggered Reveal Animations */
+@keyframes heroEntranceFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(42px);
+    filter: blur(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@keyframes heroButtonsScaleReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.82) translateY(22px);
+  }
+
+  68% {
+    transform: scale(1.05) translateY(-2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.hero-entrance-badge {
+  animation: heroEntranceFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.10s both;
+}
+
+.hero-entrance-title {
+  animation: heroEntranceFadeUp 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+.hero-entrance-tagline {
+  animation: heroEntranceFadeUp 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+
+.hero-entrance-desc {
+  animation: heroEntranceFadeUp 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+}
+
+.hero-entrance-btns {
+  animation: heroButtonsScaleReveal 0.95s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.85s both;
+}
+
+/* Magnetic Buttons Cluster with Speed Lines */
+.hero-buttons-cluster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.8rem;
+}
+
+.btn-magnetic {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.05rem 2.4rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-racing);
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.25s var(--ease-f1), box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+
+.btn-primary-f1 {
+  background: linear-gradient(135deg, #E10600 0%, #B00000 60%, #850000 100%);
+  color: var(--cloud-white);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 12px 35px var(--redbull-red-glow), 0 0 20px rgba(225, 6, 0, 0.4);
+}
+
+.btn-primary-f1:hover {
+  box-shadow: 0 18px 50px rgba(225, 6, 0, 0.95), 0 0 40px rgba(255, 90, 0, 0.7), 0 0 16px rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px) scale(1.025);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-secondary-f1 {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--cloud-white);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.btn-secondary-f1:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--gold-sunset);
+  box-shadow: 0 0 35px rgba(255, 184, 0, 0.5), 0 0 18px rgba(0, 168, 232, 0.4);
+  transform: translateY(-2px) scale(1.025);
+}
+
+/* 8. Speed-Line Hover Runner with Dual Electric Blue & Gold Reflections */
+.btn-speed-line {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(0, 168, 232, 0.45) 25%,
+      rgba(255, 255, 255, 0.95) 50%,
+      rgba(255, 184, 0, 0.6) 75%,
+      transparent 100%);
+  transform: skewX(-25deg);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.75));
+  transition: none;
+}
+
+.btn-magnetic:hover .btn-speed-line {
+  left: 200%;
+  transition: left 0.65s var(--ease-f1);
+}
+
+.btn-arrow {
+  transition: transform 0.3s ease;
+}
+
+.btn-magnetic:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+/* ==========================================================================
+   "SPEED MEETS SHADOW" — EDITORIAL FORMULA 1 CAR PRESENTATION
+   ========================================================================== */
+
+/* 1. Hero Car Editorial Stage Container */
+.hero-car-editorial-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0.5rem auto 0 auto;
+  z-index: 5;
+}
+
+/* 2. Soft Blue and Orange Light Blooms Behind the Car Only */
+.editorial-light-blooms {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Blue Bloom */
+.bloom-blue-racing {
+  position: absolute;
+  top: 42%;
+  left: 48%;
+  transform: translate(-50%, -50%);
+  width: clamp(380px, 65vw, 920px);
+  height: 290px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 150, 240, 0.38) 0%, rgba(0, 70, 180, 0.18) 45%, transparent 72%);
+  filter: blur(50px);
+}
+
+/* Orange Bloom */
+.bloom-orange-redbull {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(320px, 55vw, 820px);
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 105, 0, 0.46) 0%, rgba(255, 60, 0, 0.20) 45%, transparent 75%);
+  filter: blur(38px);
+}
+
+/* Soft Ambient Glow Behind Rear Wing */
+.bloom-rearwing-halo {
+  position: absolute;
+  top: 18%;
+  right: 18%;
+  width: clamp(160px, 25vw, 320px);
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.32) 0%, rgba(255, 180, 0, 0.16) 45%, transparent 75%);
+  filter: blur(30px);
+}
+
+/* CINEMATIC SPOTLIGHT EFFECT — Luxury F1 Advertisement Lighting */
+.car-cinematic-spotlight {
+  position: absolute;
+  top: 48%;
+  left: 48%;
+  transform: translate(-50%, -50%);
+  width: clamp(560px, 78vw, 1200px);
+  height: clamp(300px, 48vw, 620px);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 65% 55% at 46% 48%,
+    rgba(255, 155, 20, 0.35) 0%,
+    rgba(255, 110, 0, 0.24) 22%,
+    rgba(0, 168, 240, 0.28) 46%,
+    rgba(0, 70, 190, 0.16) 66%,
+    rgba(3, 8, 20, 0.08) 84%,
+    transparent 100%
+  );
+  filter: blur(44px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.25s ease-out;
+}
+
+/* 3. Large RB21 Car Container (~90% Width, Shifted Slightly Bottom-Right) */
+.hero-editorial-car-container {
+  position: relative;
+  width: 90%;
+  max-width: 1240px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(2.5%, 3%);
+}
+
+@media (max-width: 768px) {
+  .hero-editorial-car-container {
+    width: 96%;
+    transform: translate(0, 2%);
+  }
+}
+
+/* Realistic Orange Floor Reflection Beneath the Car */
+.car-floor-orange-reflection {
+  position: absolute;
+  bottom: -18px;
+  left: 5%;
+  width: 90%;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 110, 0, 0.55) 0%, rgba(255, 60, 0, 0.24) 40%, transparent 72%);
+  filter: blur(24px);
+  transform: scaleY(0.35);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Soft Shadow to Give Depth */
+.car-depth-chassis-shadow {
+  position: absolute;
+  bottom: -28px;
+  left: 4%;
+  width: 92%;
+  height: 60px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.96) 0%, rgba(2, 6, 14, 0.75) 45%, transparent 75%);
+  filter: blur(16px);
+  transform: scaleY(0.42);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Car Image Wrap & RB21 Asset */
+.hero-editorial-car-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+.hero-rb21-editorial-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  filter: contrast(1.18) saturate(1.18) brightness(0.94) drop-shadow(0 32px 64px rgba(0, 0, 0, 0.96));
+  mask-image: radial-gradient(ellipse 96% 90% at 50% 50%, black 82%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 96% 90% at 50% 50%, black 82%, transparent 100%);
+  transition: filter 0.2s ease-out;
+}
+
+/* Luxury F1 Advertisement Corner Vignette on Car Wrap */
+.hero-car-ad-lighting {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md);
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    ellipse 90% 80% at 46% 48%,
+    transparent 40%,
+    rgba(2, 6, 16, 0.62) 72%,
+    rgba(1, 4, 12, 0.94) 100%
+  );
+  mix-blend-mode: normal;
+}
+
+/* 1. Dark Vignette Overlay with Radial Cutout Mask (keeps rest of image dark with smooth vignette) */
+.hero-car-dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 6, 16, 0.82);
+  pointer-events: none;
+  z-index: 3;
+  border-radius: var(--radius-lg);
+  -webkit-mask-image: radial-gradient(
+    circle 175px at var(--spot-x, 46%) var(--spot-y, 48%),
+    transparent 0%,
+    transparent 45px,
+    rgba(0, 0, 0, 0.55) 115px,
+    black 175px
+  );
+  mask-image: radial-gradient(
+    circle 175px at var(--spot-x, 46%) var(--spot-y, 48%),
+    transparent 0%,
+    transparent 45px,
+    rgba(0, 0, 0, 0.55) 115px,
+    black 175px
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  will-change: mask-image, -webkit-mask-image;
+}
+
+/* 2. Locked Studio Spotlight (centered on RB21 nose/cockpit, tracks cursor slightly) */
+.hero-car-cursor-spotlight {
+  position: absolute;
+  top: 48%;
+  left: 46%;
+  width: clamp(320px, 26vw, 370px);
+  height: clamp(320px, 26vw, 370px);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.78) 0%,
+    rgba(255, 242, 210, 0.58) 25%,
+    rgba(255, 145, 0, 0.28) 50%,
+    rgba(0, 168, 240, 0.14) 75%,
+    transparent 100%
+  );
+  filter: blur(35px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0.78;
+  transition: opacity 0.4s ease;
+  will-change: left, top, opacity;
+}
+
+.hero-editorial-car-wrap:hover .hero-car-cursor-spotlight,
+.hero-car-cursor-spotlight.is-active {
+  opacity: 0.92;
+}
+
+/* 4. Very Slow Glossy Light Sweep Across the Car Every 8 Seconds */
+.hero-car-glossy-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.hero-car-glossy-sweep::after {
+  content: '';
+  position: absolute;
+  top: -35%;
+  left: -110%;
+  width: 28%;
+  height: 170%;
+  background: linear-gradient(
+    112deg,
+    transparent 20%,
+    rgba(0, 240, 255, 0.16) 40%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 160, 0, 0.22) 60%,
+    transparent 80%
+  );
+  transform: skewX(-24deg);
+  mix-blend-mode: screen;
+  filter: blur(5px);
+  animation: editorialCarSheen 8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  will-change: left, opacity;
+}
+
+@keyframes editorialCarSheen {
+  0%, 65% {
+    left: -110%;
+    opacity: 0;
+  }
+  72% {
+    opacity: 0.95;
+  }
+  88% {
+    left: 190%;
+    opacity: 0.95;
+  }
+  94%, 100% {
+    left: 190%;
+    opacity: 0;
+  }
+}
+
+/* 6. Static Glass Telemetry Card Below the Car */
+.hero-glass-telemetry-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+  background: rgba(4, 10, 24, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 184, 0, 0.28);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 2.8rem;
+  width: fit-content;
+  margin: 1.4rem auto 0 auto;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 30px rgba(0, 59, 142, 0.18);
+  position: relative;
+  z-index: 6;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-glass-telemetry-card:hover {
+  border-color: rgba(255, 184, 0, 0.55);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 184, 0, 0.25);
+}
+
+.telem-card-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+}
+
+.telem-card-label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--subtle-slate);
+  text-transform: uppercase;
+}
+
+.telem-card-val {
+  font-family: var(--font-racing);
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFD166 50%, #FF9F1C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(255, 184, 0, 0.4));
+}
+
+.telem-card-divider {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(180deg, transparent, rgba(255, 184, 0, 0.4), transparent);
+}
+
+/* Animated Vector SVG RB21 F1 Car Engine */
+.rb-f1-car-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 35px 55px rgba(0, 0, 0, 0.95)) drop-shadow(0 10px 25px rgba(2, 8, 20, 0.8));
+  transition: filter 0.35s ease, transform 0.1s linear;
+  will-change: transform, filter;
+}
+
+.car-visual-container:hover .rb-f1-car-svg {
+  filter: drop-shadow(0 35px 60px rgba(0, 0, 0, 0.98)) drop-shadow(0 0 16px rgba(0, 229, 255, 0.75)) drop-shadow(0 0 35px rgba(225, 6, 0, 0.65)) drop-shadow(0 0 50px rgba(255, 184, 0, 0.45));
+}
+
+/* Floating Golden Particles Canvas Behind the Car */
+.hero-golden-particles-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Floating Golden Particles Canvas Behind the Car (alt) */
+.hero-car-particles-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Authentic Front-Facing RB21 F1 Car */
+.f1-car-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  filter: contrast(1.16) saturate(1.2) brightness(1.02) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.95));
+  mask-image: radial-gradient(ellipse 92% 86% at 50% 50%, black 72%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 92% 86% at 50% 50%, black 72%, transparent 100%);
+  transition: filter 0.35s ease, transform 0.1s linear;
+  will-change: transform, filter;
+}
+
+/* 6. Hover Effect: Wheels Glow (Left & Right Front Wheels) */
+.car-wheel-glow {
+  position: absolute;
+  width: 17%;
+  height: 37%;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+}
+
+.wheel-left-glow {
+  top: 42%;
+  left: 9%;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.95) 0%, rgba(0, 110, 255, 0.6) 42%, rgba(255, 90, 0, 0.4) 65%, transparent 80%);
+  box-shadow: 0 0 35px #00E5FF, 0 0 60px rgba(255, 90, 0, 0.55);
+}
+
+.wheel-right-glow {
+  top: 42%;
+  right: 9%;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.95) 0%, rgba(0, 110, 255, 0.6) 42%, rgba(255, 90, 0, 0.4) 65%, transparent 80%);
+  box-shadow: 0 0 35px #00E5FF, 0 0 60px rgba(255, 90, 0, 0.55);
+}
+
+.car-visual-container:hover .car-wheel-glow {
+  opacity: 1;
+}
+
+/* 6. Hover Effect: Front Wing Gets a Reflective Highlight */
+.frontwing-reflective-shimmer {
+  position: absolute;
+  bottom: 7%;
+  left: 12%;
+  width: 76%;
+  height: 22px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.95) 45%, rgba(0, 229, 255, 0.85) 55%, transparent 100%);
+  filter: blur(4px);
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0.3s ease;
+}
+
+.car-visual-container:hover .frontwing-reflective-shimmer {
+  opacity: 1;
+  animation: frontWingShimmerSweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes frontWingShimmerSweep {
+  0% {
+    transform: translateX(-80%);
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateX(80%);
+    opacity: 0;
+  }
+}
+
+/* 3. Scroll Animation: Prominence Layers for Front Wing, Cockpit, Rear Wing */
+.prominence-front-wing {
+  position: absolute;
+  bottom: 5%;
+  left: 10%;
+  width: 80%;
+  height: 48px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(0, 229, 255, 0.5) 0%, rgba(255, 184, 0, 0.35) 45%, transparent 75%);
+  filter: blur(14px);
+  pointer-events: none;
+  z-index: 4;
+  opacity: var(--wing-prominence, 0.15);
+  transition: opacity 0.2s ease-out;
+}
+
+.prominence-cockpit {
+  position: absolute;
+  top: 26%;
+  left: 42%;
+  width: 16%;
+  height: 24%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 184, 0, 0.4) 40%, transparent 75%);
+  filter: blur(12px);
+  pointer-events: none;
+  z-index: 4;
+  opacity: var(--cockpit-prominence, 0.15);
+  transition: opacity 0.2s ease-out;
+}
+
+.prominence-rear-wing {
+  position: absolute;
+  top: 14%;
+  left: 24%;
+  width: 52%;
+  height: 28px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(225, 6, 0, 0.6) 0%, rgba(255, 75, 0, 0.35) 50%, transparent 75%);
+  filter: blur(12px);
+  pointer-events: none;
+  z-index: 4;
+  opacity: var(--rearwing-prominence, 0.1);
+  transition: opacity 0.2s ease-out;
+}
+
+/* Electric Glowing Neon Outline on Car Hover */
+.car-visual-container:hover .f1-car-image {
+  filter: contrast(1.22) saturate(1.3) brightness(1.05) drop-shadow(0 0 3px #00E5FF) drop-shadow(0 0 14px rgba(0, 168, 232, 0.95)) drop-shadow(0 0 32px rgba(225, 6, 0, 0.85)) drop-shadow(0 0 55px rgba(255, 184, 0, 0.5));
+}
+
+.car-hover-outline {
+  position: absolute;
+  inset: -6px;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid transparent;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.car-visual-container:hover .car-hover-outline {
+  opacity: 1;
+  border-color: rgba(0, 229, 255, 0.6);
+  box-shadow: 0 0 32px rgba(0, 168, 232, 0.45), inset 0 0 25px rgba(225, 6, 0, 0.25);
+}
+
+/* Bold Red-Blue Light Sweep Across RB21 Every Few Seconds */
+.car-light-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  border-radius: var(--radius-md);
+  background: linear-gradient(115deg,
+      transparent 20%,
+      rgba(0, 168, 232, 0.75) 38%,
+      rgba(255, 255, 255, 0.98) 48%,
+      rgba(255, 184, 0, 0.85) 54%,
+      rgba(225, 6, 0, 0.85) 64%,
+      transparent 78%);
+  transform: translateX(-160%) skewX(-24deg);
+  mix-blend-mode: screen;
+  filter: blur(5px);
+  mask-image: radial-gradient(ellipse 92% 86% at 50% 50%, black 72%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 92% 86% at 50% 50%, black 72%, transparent 100%);
+  animation: carLightSweep 4.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+@keyframes carLightSweep {
+
+  0%,
+  55% {
+    transform: translateX(-160%) skewX(-24deg);
+    opacity: 0;
+  }
+
+  62% {
+    opacity: 1;
+  }
+
+  80% {
+    transform: translateX(180%) skewX(-24deg);
+    opacity: 1;
+  }
+
+  84%,
+  100% {
+    transform: translateX(180%) skewX(-24deg);
+    opacity: 0;
+  }
+}
+
+/* Engine Glow: Front Wing & Logo Subtle Glow Pulse */
+@keyframes engineGlowPulse {
+
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scaleX(0.98);
+    filter: blur(12px) drop-shadow(0 0 10px rgba(255, 184, 0, 0.35));
+  }
+
+  50% {
+    opacity: 0.95;
+    transform: scaleX(1.03);
+    filter: blur(16px) drop-shadow(0 0 26px rgba(225, 6, 0, 0.7)) drop-shadow(0 0 35px rgba(255, 184, 0, 0.55));
+  }
+}
+
+.car-frontwing-aero-glow {
+  position: absolute;
+  bottom: 8%;
+  left: 14%;
+  width: 72%;
+  height: 36px;
+  background: radial-gradient(ellipse at center, rgba(255, 184, 0, 0.45) 0%, rgba(225, 6, 0, 0.32) 45%, transparent 75%);
+  pointer-events: none;
+  animation: engineGlowPulse 3.8s infinite ease-in-out;
+  will-change: opacity, transform, filter;
+}
+
+.car-nosecone-glow {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 184, 0, 0.45) 0%, rgba(225, 6, 0, 0.25) 50%, transparent 80%);
+  filter: blur(14px);
+  pointer-events: none;
+  z-index: 3;
+  animation: engineGlowPulse 3.8s infinite ease-in-out;
+  animation-delay: -1.9s;
+  will-change: opacity, transform, filter;
+}
+
+/* Dynamic Cursor Speed Lines: Short Blue & Red Streaks on Fast Motion */
+.hero-speed-line-streak {
+  position: absolute;
+  pointer-events: none;
+  z-index: 8;
+  height: 2px;
+  border-radius: 9999px;
+  transform-origin: left center;
+  animation: speedStreakFade 0.32s ease-out forwards;
+  will-change: opacity, transform;
+}
+
+@keyframes speedStreakFade {
+  0% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scaleX(1.6) translateX(15px);
+  }
+}
+
+/* Halo Aero Highlighting */
+.halo-aero-streak {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 25px;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.45) 0%, rgba(0, 168, 232, 0.3) 50%, transparent 80%);
+  filter: blur(8px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Tyre Smoke & Titanium Skid Block Spark Emitter Anchors */
+.tyre-smoke-emitter {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.emitter-front-left {
+  bottom: 12%;
+  left: 12%;
+}
+
+.emitter-front-right {
+  bottom: 12%;
+  right: 12%;
+}
+
+.skidblock-spark-emitter {
+  position: absolute;
+  bottom: 9%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* 2. Mouse Follow: Dynamic Shadow & Wet Track Mirror Reflection */
+.f1-car-shadow-and-reflection {
+  position: absolute;
+  bottom: -46px;
+  left: 6%;
+  width: 88%;
+  height: 98px;
+  pointer-events: none;
+  transform-origin: center top;
+  transform: scaleY(0.45);
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.car-chassis-shadow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.65) 45%, transparent 72%);
+  filter: blur(12px);
+}
+
+/* Hero Cockpit Telemetry Strip: Clean, Dark, Static HUD */
+.hero-telemetry-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.2rem;
+  background: #030814;
+  border: 1px solid rgba(255, 184, 0, 0.3);
+  padding: 1.1rem 2.8rem;
+  border-radius: var(--radius-lg);
+  width: fit-content;
+  margin: 1.2rem auto 0 auto;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 59, 142, 0.2);
+  transition: all 0.3s var(--ease-f1);
+  position: relative;
+  z-index: 10;
+}
+
+.hero-telemetry-strip:hover {
+  border-color: var(--gold-sunset);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 184, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+.telem-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.telem-label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--subtle-slate);
+  text-transform: uppercase;
+}
+
+.telem-val {
+  font-family: var(--font-racing);
+  font-size: 1.65rem;
+  letter-spacing: 0.06em;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFD166 45%, #FF9F1C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(255, 184, 0, 0.45));
+}
+
+.telem-divider {
+  width: 1px;
+  height: 38px;
+  background: linear-gradient(180deg, transparent, rgba(255, 184, 0, 0.4), transparent);
+}
+
+/* Hero Bottom Ticker */
+.hero-bottom-ticker {
+  position: relative;
+  z-index: 6;
+  width: 100%;
+  border-top: 1px solid var(--border-glass);
+  padding-top: 0.5rem;
+}
+
+.ticker-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ticker-metrics {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--font-racing);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: var(--subtle-slate);
+}
+
+.ticker-metrics .dot {
+  color: var(--redbull-red);
+}
+
+.scroll-cue-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-racing);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-sunset);
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.scroll-cue-link:hover {
+  color: var(--cloud-white);
+  transform: translateY(2px);
+}
+
+.scroll-indicator-arrow {
+  animation: bounceDown 1.8s infinite;
+}
+
+@keyframes bounceDown {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+.scroll-indicator-arrow {
+  animation: bounceDown 1.6s infinite;
+}
+
+@keyframes bounceDown {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* Video Highlights Modal */
+.highlights-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 17, 32, 0.92);
+  backdrop-filter: blur(24px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-f1);
+}
+
+.highlights-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.highlights-modal-card {
+  position: relative;
+  background: var(--surface-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  max-width: 900px;
+  width: 100%;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-glass);
+  color: var(--cloud-white);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.modal-close-btn:hover {
+  background: var(--redbull-red);
+  border-color: var(--redbull-red);
+}
+
+.modal-badge {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--gold-sunset);
+}
+
+.modal-video-title {
+  font-size: 2.4rem;
+  margin-top: 0.4rem;
+}
+
+.video-embed-stage {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-top: 1.5rem;
+  cursor: pointer;
+}
+
+.video-preview-still {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-overlay-pulse {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 17, 32, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.video-play-disc {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--redbull-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 35px var(--redbull-red-glow);
+  transition: transform 0.3s ease;
+}
+
+.video-embed-stage:hover .video-play-disc {
+  transform: scale(1.15);
+}
+
+.video-pulse-text {
+  font-family: var(--font-racing);
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  color: var(--cloud-white);
+}
+
+/* ==========================================================================
+   SECTION 2: ENERGY DRINKS (REAL PRODUCTS)
+   ========================================================================== */
+.section-energy-drinks {
+  position: relative;
+  padding: 2.6rem 0;
+  background-color: transparent;
+  overflow: hidden;
+  transition: background 0.8s var(--ease-smooth);
+}
+
+.drinks-ambient-glow {
+  position: absolute;
+  inset: 0;
+  background: var(--edition-bg);
+  pointer-events: none;
+  transition: background 0.8s var(--ease-smooth);
+}
+
+.section-editorial-header {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1.8rem;
+  gap: 2rem;
+}
+
+/* Soft Blue Ambient Glow Behind Section Headings */
+.section-editorial-header::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 28%;
+  transform: translate(-50%, -50%);
+  width: clamp(340px, 52vw, 720px);
+  height: clamp(140px, 20vw, 220px);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 50%,
+    rgba(0, 168, 232, 0.12) 0%,
+    rgba(0, 59, 142, 0.05) 50%,
+    transparent 75%
+  );
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-editorial-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section-category-tag {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--gold-sunset);
+  margin-bottom: 0.4rem;
+}
+
+.section-mega-title {
+  font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+}
+
+.section-deck-copy {
+  font-size: 1.05rem;
+  color: var(--subtle-slate);
+  max-width: 620px;
+  margin-top: 0.65rem;
+  line-height: 1.6;
+}
+
+.btn-view-all-drinks {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-glass);
+  color: var(--cloud-white);
+  padding: 0.9rem 1.8rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-racing);
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+  transition: all 0.3s ease;
+}
+
+.btn-view-all-drinks:hover {
+  background: var(--redbull-red);
+  border-color: var(--redbull-red);
+  box-shadow: 0 10px 30px var(--redbull-red-glow);
+  transform: translateY(-2px);
+}
+
+/* Drinks Carousel Zone */
+.drinks-carousel-zone {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  perspective: 1400px;
+}
+
+.drinks-arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(10, 20, 40, 0.85);
+  border: 1px solid var(--border-glass);
+  color: var(--cloud-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 30;
+  backdrop-filter: blur(16px);
+  transition: all 0.3s var(--ease-f1);
+}
+
+.drinks-arrow-btn:hover {
+  background: var(--gold-sunset);
+  color: var(--midnight-navy);
+  border-color: var(--gold-sunset);
+  box-shadow: 0 0 25px var(--gold-sunset-glow);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.drinks-arrow-btn.prev {
+  left: 0;
+}
+
+.drinks-arrow-btn.next {
+  right: 0;
+}
+
+.drinks-carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+  padding: 1.5rem 0;
+  cursor: grab;
+}
+
+.drinks-carousel-viewport:active {
+  cursor: grabbing;
+}
+
+.drinks-carousel-track {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: transform 0.6s var(--ease-f1);
+  will-change: transform;
+}
+
+/* Drink Item Card (Center enlarged, side shrunk) */
+.drink-item-card {
+  flex: 0 0 350px;
+  padding: 0 1.2rem;
+  user-select: none;
+  cursor: pointer;
+  transform: scale(0.8) rotateY(12deg);
+  opacity: 0.55;
+  filter: saturate(0.85);
+  transition: all 0.55s var(--ease-f1);
+  transform-origin: center center;
+}
+
+.drink-item-card.is-active {
+  transform: scale(1.2) translateZ(50px) rotateY(0deg);
+  opacity: 1;
+  filter: saturate(1.15);
+  z-index: 20;
+}
+
+.drink-card-plate {
+  position: relative;
+  background: var(--surface-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--card-radius);
+  padding: 2.8rem 2rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  box-shadow: var(--card-shadow-base);
+  transition: var(--card-transition);
+}
+
+.drink-card-plate:hover {
+  border-color: var(--gold-sunset);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.drink-item-card.is-active .drink-card-plate {
+  border-color: var(--edition-color);
+  box-shadow: 0 30px 70px -10px var(--edition-glow), 0 0 25px rgba(255, 184, 0, 0.22);
+}
+
+/* Water Splash Behind Center Can */
+.water-splash-backdrop {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 220px;
+  height: 220px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s var(--ease-f1);
+  z-index: 1;
+}
+
+.drink-item-card.is-active .water-splash-backdrop {
+  opacity: 0.85;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Real Product Can Photograph Display */
+.drink-can-silhouette {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  margin: 1rem 0 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.real-can-photo {
+  max-height: 230px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.75));
+  transition: transform 0.45s var(--ease-f1), filter 0.45s ease;
+  will-change: transform;
+}
+
+.drink-item-card.is-active .real-can-photo {
+  transform: scale(1.12);
+  filter: drop-shadow(0 25px 40px var(--edition-glow)) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.9));
+}
+
+/* Card Content Details */
+.drink-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+.drink-edition-name {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.drink-heading {
+  font-size: 1.75rem;
+  margin-bottom: 0.45rem;
+}
+
+.drink-flavor-lead {
+  font-size: 0.85rem;
+  color: var(--subtle-slate);
+  line-height: 1.5;
+  margin-bottom: 1.1rem;
+}
+
+.drink-nutrition-badge {
+  display: flex;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--gold-sunset);
+  margin-bottom: 1.2rem;
+}
+
+.drink-nutrition-badge span {
+  background: rgba(255, 184, 0, 0.12);
+  border: 1px solid rgba(255, 184, 0, 0.3);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+}
+
+.btn-drink-explore {
+  font-family: var(--font-racing);
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  color: var(--cloud-white);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.btn-drink-explore:hover {
+  color: var(--gold-sunset);
+}
+
+/* Carousel Dots */
+.drinks-dots-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 2rem;
+}
+
+.drink-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.drink-dot.active {
+  width: 34px;
+  border-radius: var(--radius-pill);
+  background: var(--gold-sunset);
+  box-shadow: 0 0 14px var(--gold-sunset-glow);
+}
+
+/* Complete Lineup Modal Matrix */
+.all-drinks-modal-shade {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 17, 32, 0.92);
+  backdrop-filter: blur(24px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-f1);
+}
+
+.all-drinks-modal-shade.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.all-drinks-modal-box {
+  position: relative;
+  background: var(--surface-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  max-width: 960px;
+  width: 100%;
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.85);
+}
+
+.modal-lineup-title {
+  font-size: 2.8rem;
+  margin-top: 0.4rem;
+}
+
+.all-drinks-matrix {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  margin-top: 2rem;
+}
+
+.matrix-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+}
+
+.matrix-card h4 {
+  color: var(--gold-sunset);
+  font-size: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.matrix-card p {
+  font-size: 0.85rem;
+  color: var(--subtle-slate);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   SECTION 3: STORIES — EDITORIAL IMAGE CARDS
+   ========================================================================== */
+.section-stories {
+  position: relative;
+  padding: 2.5rem 0;
+  background-color: transparent;
+}
+
+.editorial-stories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.story-image-card {
+  position: relative;
+  height: 490px;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  border: 1px solid var(--border-glass);
+  background: var(--surface-card);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.2rem;
+  box-shadow: var(--card-shadow-base);
+  transition: transform var(--card-transition), border-color 0.35s ease, box-shadow var(--card-transition);
+  will-change: transform;
+}
+
+/* Hover Animation: Card lifts slightly */
+.story-image-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--gold-sunset);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.story-photo-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Hover Animation: Image zoom */
+.story-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-f1);
+  will-change: transform;
+}
+
+.story-image-card:hover .story-hero-img {
+  transform: scale(1.08);
+}
+
+/* Hover Animation: Dark gradient overlay */
+.story-vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 17, 32, 0.15) 0%, rgba(6, 17, 32, 0.55) 45%, rgba(6, 17, 32, 0.96) 100%);
+  transition: background 0.45s ease;
+}
+
+.story-image-card:hover .story-vignette {
+  background: linear-gradient(180deg, rgba(6, 17, 32, 0.4) 0%, rgba(6, 17, 32, 0.78) 38%, rgba(6, 17, 32, 0.98) 100%);
+}
+
+.story-overlay-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.story-badge-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.story-pill-cat {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--gold-sunset);
+  background: rgba(255, 184, 0, 0.14);
+  border: 1px solid rgba(255, 184, 0, 0.35);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.story-image-card:hover .story-pill-cat {
+  background: rgba(255, 184, 0, 0.25);
+  box-shadow: 0 0 12px rgba(255, 184, 0, 0.3);
+}
+
+.story-reading-time {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--subtle-slate);
+}
+
+.story-headline {
+  font-family: var(--font-racing);
+  font-size: clamp(1.3rem, 1.55vw, 1.58rem);
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  color: var(--cloud-white);
+  transition: color 0.3s ease;
+}
+
+.story-image-card:hover .story-headline {
+  color: var(--gold-sunset);
+}
+
+.story-cta-wrap {
+  overflow: hidden;
+  margin-top: 0.2rem;
+  min-height: 32px;
+}
+
+/* Hover Animation: "Read Story →" appears */
+.btn-read-story-slide {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-racing);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  color: var(--cloud-white);
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.35s var(--ease-f1), transform 0.35s var(--ease-f1), color 0.25s ease;
+}
+
+.story-image-card:hover .btn-read-story-slide {
+  opacity: 1;
+  transform: translateY(0);
+  color: var(--gold-sunset);
+}
+
+.btn-read-story-slide .btn-arrow {
+  transition: transform 0.3s ease;
+}
+
+.story-image-card:hover .btn-read-story-slide .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* View All Stories Action Container */
+.stories-footer-action {
+  display: flex;
+  justify-content: center;
+  margin-top: 3.5rem;
+}
+
+.btn-view-all-stories {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.05rem 2.8rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-racing);
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  color: var(--cloud-white);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-f1);
+}
+
+.btn-view-all-stories:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--gold-sunset);
+  box-shadow: 0 0 30px rgba(255, 184, 0, 0.35);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-view-all-stories:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+/* ==========================================================================
+   SECTION 4: EVENTS — FEATURED & EXPANDABLE GLASS CARDS
+   ========================================================================== */
+.section-events {
+  position: relative;
+  padding: 2.6rem 0;
+  background-color: transparent;
+}
+
+/* Featured Event Billboard */
+.featured-event-billboard {
+  position: relative;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  border: 1px solid var(--border-gold);
+  background: var(--surface-card);
+  box-shadow: var(--card-shadow-base);
+  margin-bottom: 1.6rem;
+  transition: transform var(--card-transition), border-color 0.35s ease, box-shadow var(--card-transition);
+}
+
+.featured-event-billboard:hover {
+  border-color: var(--gold-sunset);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.featured-poster-media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.featured-poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featured-poster-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(6, 17, 32, 0.96) 0%, rgba(6, 17, 32, 0.85) 45%, rgba(6, 17, 32, 0.4) 100%);
+}
+
+.featured-content-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  align-items: center;
+  gap: 3rem;
+  padding: 3.5rem;
+}
+
+.live-event-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--redbull-red);
+  margin-bottom: 0.8rem;
+}
+
+.featured-title {
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  line-height: 0.95;
+  margin-bottom: 0.6rem;
+}
+
+.featured-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--gold-sunset);
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+.featured-synopsis {
+  font-size: 0.98rem;
+  color: var(--subtle-slate);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 1.8rem;
+}
+
+/* Countdown Glass Box */
+.countdown-glass-box {
+  background: rgba(6, 17, 32, 0.75);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  backdrop-filter: blur(20px);
+}
+
+.countdown-heading {
+  font-family: var(--font-racing);
+  font-size: 1.3rem;
+  letter-spacing: 0.12em;
+  color: var(--subtle-slate);
+  margin-bottom: 1.5rem;
+}
+
+.countdown-clock-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+.clock-unit {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  padding: 1.2rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.clock-num {
+  font-family: var(--font-racing);
+  font-size: 3rem;
+  line-height: 0.95;
+  color: var(--cloud-white);
+}
+
+.clock-label {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--gold-sunset);
+  margin-top: 0.4rem;
+}
+
+.clock-status-live {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--subtle-slate);
+}
+
+.live-indicator-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2ECC71;
+  box-shadow: 0 0 8px #2ECC71;
+}
+
+/* Expandable Glass Event Cards */
+.events-expandable-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.glass-event-card {
+  background: rgba(10, 20, 40, 0.65);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--card-radius);
+  padding: 1.6rem 2.2rem;
+  backdrop-filter: blur(18px);
+  cursor: pointer;
+  box-shadow: var(--card-shadow-base);
+  transition: transform var(--card-transition), border-color 0.35s ease, box-shadow var(--card-transition), background 0.35s ease;
+}
+
+.glass-event-card:hover {
+  background: rgba(16, 30, 58, 0.85);
+  border-color: var(--gold-sunset);
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.card-summary-row {
+  display: grid;
+  grid-template-columns: 140px 1.5fr 1fr 40px;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.event-type-chip {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--gold-sunset);
+  background: rgba(255, 184, 0, 0.12);
+  border: 1px solid rgba(255, 184, 0, 0.3);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  width: fit-content;
+}
+
+.card-event-title {
+  font-size: 1.5rem;
+}
+
+.card-event-quick {
+  font-size: 0.88rem;
+  color: var(--subtle-slate);
+}
+
+.btn-expand-card {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-glass);
+  color: var(--cloud-white);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.glass-event-card.expanded .btn-expand-card {
+  transform: rotate(45deg);
+  background: var(--redbull-red);
+  border-color: var(--redbull-red);
+}
+
+.card-expanded-drawer {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.45s var(--ease-f1), opacity 0.35s ease, margin-top 0.35s ease;
+}
+
+.glass-event-card.expanded .card-expanded-drawer {
+  max-height: 140px;
+  opacity: 1;
+  margin-top: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border-glass);
+}
+
+.drawer-desc {
+  font-size: 0.92rem;
+  color: var(--subtle-slate);
+  line-height: 1.6;
+}
+
+.drawer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.drawer-status {
+  font-size: 0.82rem;
+  color: #2ECC71;
+  font-weight: 600;
+}
+
+.btn-drawer-register {
+  font-family: var(--font-racing);
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  color: var(--gold-sunset);
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   SECTION 5: ATHLETES — COMPACT EDITORIAL HORIZONTAL CAROUSEL
+   ========================================================================== */
+.section-athletes {
+  position: relative;
+  padding: 2.2rem 0;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+.athlete-slider-arrows {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.slider-arrow-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface-card);
+  border: 1px solid var(--border-glass);
+  color: var(--cloud-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.slider-arrow-btn:hover {
+  background: var(--gold-sunset);
+  color: var(--midnight-navy);
+  border-color: var(--gold-sunset);
+  transform: scale(1.08);
+}
+
+/* Horizontal Carousel Stage */
+.athletes-carousel-stage {
+  width: 100%;
+  min-width: 0;
+  position: relative;
+  margin-top: 2.2rem;
+}
+
+.athletes-slider-viewport {
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding: 0.6rem 0 1.2rem;
+  cursor: grab;
+  user-select: none;
+}
+
+.athletes-slider-viewport:active,
+.athletes-slider-viewport.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.athletes-slider-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.athletes-slider-track {
+  display: flex;
+  gap: 1.4rem;
+  width: max-content;
+}
+
+/* Compact Rounded Glass Portrait Cards (Equal Size 280px x 340px) */
+.athlete-portrait-card {
+  position: relative;
+  width: 280px;
+  flex: 0 0 280px;
+  height: 340px;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  border: 1px solid var(--border-glass);
+  background: rgba(8, 16, 32, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  scroll-snap-align: start;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  box-shadow: var(--card-shadow-base);
+  transition: transform var(--card-transition),
+    border-color 0.35s ease,
+    box-shadow var(--card-transition);
+  will-change: transform;
+}
+
+/* Cursor Glow on Card */
+.athlete-portrait-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 184, 0, 0.14) 0%,
+      transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.athlete-portrait-card:hover::after {
+  opacity: 1;
+}
+
+/* Card Lift & Glow on Hover */
+.athlete-portrait-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold-sunset);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Portrait Image Stage (240px height, equal aspect ratio) */
+.portrait-image-stage {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  background: #040914;
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+}
+
+.portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.athlete-portrait-card:hover .portrait-img {
+  transform: scale(1.06);
+}
+
+.portrait-dark-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 17, 32, 0.1) 0%, rgba(6, 17, 32, 0.3) 60%, rgba(6, 17, 32, 0.8) 100%);
+  transition: background 0.35s ease;
+  pointer-events: none;
+}
+
+.athlete-portrait-card:hover .portrait-dark-veil {
+  background: linear-gradient(180deg, rgba(6, 17, 32, 0.05) 0%, rgba(6, 17, 32, 0.25) 60%, rgba(4, 10, 20, 0.85) 100%);
+}
+
+.portrait-orange-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+      transparent 0%,
+      transparent 55%,
+      rgba(255, 60, 0, 0.35) 85%,
+      rgba(255, 140, 0, 0.55) 100%);
+  opacity: 0;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.athlete-portrait-card:hover .portrait-orange-gradient {
+  opacity: 1;
+}
+
+/* Small Pill Badges (Top-Left Corner) */
+.athlete-card-badges {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.athlete-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: rgba(6, 14, 28, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.24rem 0.6rem;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.athlete-pill-badge.pill-featured {
+  background: rgba(225, 6, 0, 0.85);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  box-shadow: 0 2px 10px rgba(225, 6, 0, 0.4);
+}
+
+.athlete-pill-badge .flag-icon {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.athlete-portrait-card:hover .athlete-pill-badge {
+  border-color: rgba(255, 184, 0, 0.5);
+}
+
+/* Name and Sport Category Below the Image */
+.athlete-card-info {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.95rem 1.25rem 1.1rem;
+  height: 100px;
+  background: rgba(8, 16, 32, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0 0 24px 24px;
+}
+
+.athlete-sport-category {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--gold-sunset);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+  transition: color 0.3s ease;
+}
+
+.athlete-portrait-card:hover .athlete-sport-category {
+  color: #FFFFFF;
+}
+
+.athlete-full-title {
+  font-family: var(--font-racing);
+  font-size: 1.35rem;
+  line-height: 1.05;
+  letter-spacing: 0.03em;
+  color: var(--cloud-white);
+  text-transform: uppercase;
+  margin: 0;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.athlete-portrait-card:hover .athlete-full-title {
+  color: var(--gold-sunset);
+  text-shadow: 0 0 14px rgba(255, 184, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+  .section-athletes {
+    padding: 3.5rem 0;
+  }
+
+  .athlete-portrait-card {
+    width: 250px;
+    flex: 0 0 250px;
+    height: 320px;
+  }
+
+  .portrait-image-stage {
+    height: 220px;
+  }
+
+  .athlete-card-info {
+    height: 100px;
+    padding: 0.85rem 1.1rem;
+  }
+
+  .athlete-full-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* ==========================================================================
+   SECTION 6: MORE FROM RED BULL — FULL-WIDTH IMMERSIVE CATEGORIES
+   ========================================================================== */
+.section-more-redbull {
+  position: relative;
+  padding: 2.6rem 0;
+  background-color: transparent;
+}
+
+.more-portals-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.category-portal-card {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  border: 1px solid var(--border-glass);
+  text-decoration: none;
+  color: var(--cloud-white);
+  display: flex;
+  align-items: flex-end;
+  padding: 3rem;
+  box-shadow: var(--card-shadow-base);
+  transition: transform var(--card-transition), border-color 0.35s ease, box-shadow var(--card-transition);
+}
+
+.category-portal-card:hover {
+  border-color: var(--gold-sunset);
+  transform: translateY(-6px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.category-image-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.category-bg-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-f1);
+}
+
+.category-portal-card:hover .category-bg-photo {
+  transform: scale(1.08);
+}
+
+.category-curtain {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(6, 17, 32, 0.95) 0%, rgba(6, 17, 32, 0.7) 45%, rgba(6, 17, 32, 0.2) 100%);
+  transition: background 0.4s ease;
+}
+
+.category-portal-card:hover .category-curtain {
+  background: linear-gradient(90deg, rgba(6, 17, 32, 0.9) 0%, rgba(6, 17, 32, 0.5) 45%, rgba(6, 17, 32, 0.1) 100%);
+}
+
+.category-content-layer {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.category-number {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--gold-sunset);
+}
+
+.category-title {
+  font-size: 3.2rem;
+  line-height: 0.95;
+}
+
+.category-synopsis {
+  font-size: 0.95rem;
+  color: var(--subtle-slate);
+  line-height: 1.6;
+}
+
+.category-enter-arrow {
+  font-family: var(--font-racing);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-sunset);
+  margin-top: 0.4rem;
+  transition: transform 0.3s ease;
+}
+
+.category-portal-card:hover .category-enter-arrow {
+  transform: translateX(6px);
+}
+
+/* ==========================================================================
+   SECTION 7: GALLERY — PINTEREST MASONRY & LIGHTBOX
+   ========================================================================== */
+.section-gallery {
+  position: relative;
+  padding: 2.6rem 0;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+.masonry-gallery-grid {
+  column-count: 3;
+  column-gap: 1.8rem;
+  width: 100%;
+}
+
+.masonry-item {
+  position: relative;
+  break-inside: avoid;
+  margin-bottom: 1.8rem;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  border: 1px solid var(--border-glass);
+  background: rgba(6, 17, 32, 0.6);
+  cursor: pointer;
+  transform: translateY(var(--masonry-parallax, 0px));
+  box-shadow: var(--card-shadow-base);
+  transition: transform var(--card-transition), border-color 0.35s ease, box-shadow var(--card-transition);
+  will-change: transform;
+}
+
+.masonry-item:hover {
+  transform: translateY(calc(var(--masonry-parallax, 0px) - 8px));
+  border-color: var(--gold-sunset);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.masonry-img-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Image Zoom (scale 1.08) on hover */
+.masonry-item:hover img {
+  transform: scale(1.08);
+}
+
+/* Featured Video Play Badge */
+.video-play-badge {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(6, 17, 32, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 24, 1, 0.45);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem 0.35rem 0.45rem;
+  transition: all 0.35s var(--ease-f1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.video-play-badge .play-icon-glow {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--redbull-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cloud-white);
+  font-size: 0.7rem;
+  padding-left: 2px;
+  box-shadow: 0 0 12px rgba(255, 24, 1, 0.7);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.video-play-badge .video-duration {
+  font-family: var(--font-racing);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--cloud-white);
+}
+
+.masonry-item:hover .video-play-badge {
+  border-color: var(--redbull-red);
+  background: rgba(6, 17, 32, 0.95);
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 24, 1, 0.35);
+}
+
+.masonry-item:hover .play-icon-glow {
+  transform: scale(1.15);
+  background: #ff2200;
+}
+
+/* Dark Gradient Overlay */
+.masonry-hover-curtain {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(4, 10, 20, 0.1) 0%, rgba(4, 10, 20, 0.5) 45%, rgba(4, 10, 20, 0.95) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.2rem 1.8rem 1.6rem;
+  z-index: 3;
+  transition: background 0.4s ease;
+}
+
+.masonry-item:hover .masonry-hover-curtain {
+  background: linear-gradient(180deg, rgba(4, 10, 20, 0.2) 0%, rgba(4, 10, 20, 0.7) 40%, rgba(2, 6, 14, 0.98) 100%);
+}
+
+.masonry-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+}
+
+/* Category Appears */
+.masonry-tag {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--gold-sunset);
+  text-transform: uppercase;
+}
+
+/* Location Appears with upward slide */
+.masonry-location {
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--silver-metallic);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform: translateY(18px);
+  opacity: 0;
+  transition: transform 0.35s var(--ease-f1), opacity 0.3s ease;
+}
+
+.masonry-item:hover .masonry-location {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.masonry-title {
+  font-size: 1.65rem;
+  line-height: 1.1;
+  color: var(--cloud-white);
+  margin: 0.15rem 0 0.2rem;
+  letter-spacing: 0.02em;
+}
+
+/* "Read More →" or "Watch Now ▶" Button Slides Upward */
+.masonry-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-family: var(--font-racing);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-sunset);
+  text-transform: uppercase;
+  transform: translateY(18px);
+  opacity: 0;
+  transition: transform 0.35s var(--ease-f1) 0.04s, opacity 0.3s ease 0.04s, color 0.2s ease;
+}
+
+.masonry-item:hover .masonry-action-btn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.masonry-action-btn:hover {
+  color: var(--cloud-white);
+}
+
+/* Lightbox Modal */
+.gallery-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 15, 0.96);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-f1);
+}
+
+.gallery-lightbox-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-image-container {
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightbox-media-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-active-img {
+  max-width: 100%;
+  max-height: 72vh;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-glass);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 187, 0, 0.1);
+  object-fit: contain;
+}
+
+.lightbox-video-indicator {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(6, 17, 32, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 24, 1, 0.5);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem 0.35rem 0.5rem;
+  box-shadow: 0 4px 18px rgba(255, 24, 1, 0.3);
+}
+
+.lightbox-play-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--redbull-red);
+  color: var(--cloud-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  padding-left: 2px;
+}
+
+.lightbox-video-tag {
+  font-family: var(--font-racing);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: var(--cloud-white);
+}
+
+.lightbox-meta-info {
+  margin-top: 1.2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.lightbox-category-tag {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--gold-sunset);
+  text-transform: uppercase;
+}
+
+.lightbox-caption-bar {
+  font-family: var(--font-racing);
+  font-size: 1.55rem;
+  letter-spacing: 0.06em;
+  color: var(--cloud-white);
+  max-width: 780px;
+}
+
+.lightbox-location-tag {
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--silver-metallic);
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-glass);
+  color: var(--cloud-white);
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.lightbox-close-btn:hover {
+  background: var(--redbull-red);
+  transform: rotate(90deg);
+}
+
+.lightbox-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-glass);
+  color: var(--cloud-white);
+  font-size: 2.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.lightbox-nav-btn:hover {
+  background: var(--gold-sunset);
+  color: var(--midnight-navy);
+}
+
+.lightbox-nav-btn.prev {
+  left: 2rem;
+}
+
+.lightbox-nav-btn.next {
+  right: 2rem;
+}
+
+@media (max-width: 768px) {
+  .lightbox-nav-btn.prev {
+    left: 0.8rem;
+  }
+
+  .lightbox-nav-btn.next {
+    right: 0.8rem;
+  }
+
+  .lightbox-caption-bar {
+    font-size: 1.2rem;
+  }
+
+  .masonry-location {
+    font-size: 0.7rem;
+  }
+}
+
+/* ==========================================================================
+   SECTION 8: FOOTER — LUXURY PADDOCK FOOTER
+   ========================================================================== */
+.paddock-footer {
+  position: relative;
+  background: radial-gradient(120% 120% at 50% 0%, rgba(6, 19, 40, 0.95) 0%, rgba(3, 8, 20, 0.98) 55%, #010308 100%);
+  border-top: 1px solid rgba(255, 184, 0, 0.12);
+  box-shadow: 0 -12px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 184, 0, 0.08);
+  padding: 2.8rem 0 1.8rem;
+  color: var(--subtle-slate);
+}
+
+.footer-primary-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr 1.1fr 1.2fr 1fr;
+  gap: 2.8rem;
+  margin-bottom: 2rem;
+}
+
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  margin-bottom: 0.85rem;
+}
+
+.footer-brand-title {
+  font-family: var(--font-racing);
+  font-size: 2.1rem;
+  letter-spacing: 0.04em;
+  color: var(--cloud-white);
+  line-height: 1;
+}
+
+.footer-brand-tagline {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--gold-sunset);
+  margin-top: 0.35rem;
+  margin-bottom: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.footer-brand-deck {
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  color: var(--subtle-slate);
+  line-height: 1.65;
+  max-width: 320px;
+  margin: 0;
+}
+
+.footer-col-header {
+  font-family: var(--font-racing);
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  color: var(--cloud-white);
+  margin-bottom: 1.3rem;
+  display: block;
+  text-transform: uppercase;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-link-item a {
+  position: relative;
+  display: inline-block;
+  color: var(--subtle-slate);
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Smooth hover underline animation */
+.footer-link-item a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 1.5px;
+  background: linear-gradient(90deg, #E10600, #FFB800);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-link-item a:hover {
+  color: #FFFFFF;
+}
+
+.footer-link-item a:hover::after {
+  width: 100%;
+}
+
+/* Minimalist Social Icons List */
+.footer-social-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-social-item a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--subtle-slate);
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.footer-social-item a svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-social-item a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 1.5px;
+  background: linear-gradient(90deg, #E10600, #FFB800);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-social-item a:hover {
+  color: #FFFFFF;
+}
+
+.footer-social-item a:hover svg {
+  color: var(--gold-sunset);
+  transform: translateX(2px);
+}
+
+.footer-social-item a:hover::after {
+  width: 100%;
+}
+
+/* Bottom Legal Bar */
+.footer-bottom-deck {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.82rem;
+  color: var(--subtle-slate);
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  .footer-bottom-deck {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    text-align: left;
+  }
+}
+
+.footer-copyright {
+  color: var(--subtle-slate);
+  font-weight: 500;
+}
+
+.footer-legal-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.footer-legal-row a {
+  position: relative;
+  color: var(--subtle-slate);
+  text-decoration: none;
+  font-size: 0.82rem;
+  transition: color 0.3s ease;
+}
+
+.footer-legal-row a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 1px;
+  background: var(--gold-sunset);
+  transition: width 0.3s ease;
+}
+
+.footer-legal-row a:hover {
+  color: #FFFFFF;
+}
+
+.footer-legal-row a:hover::after {
+  width: 100%;
+}
+
+.footer-disclaimer-note {
+  width: 100%;
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.02em;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+@media (max-width: 1100px) {
+  .footer-primary-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .paddock-footer {
+    padding: 4rem 0 2rem;
+  }
+
+  .footer-primary-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .footer-brand-col {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-primary-grid {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+
+  .footer-brand-col {
+    grid-column: span 1;
+  }
+
+  .footer-legal-row {
+    gap: 0.5rem;
+  }
+}
+
+/* ==========================================================================
+   SCROLL REVEALS — 0.8S DURATION & 30PX UPWARD TRAVEL WITH STAGGER
+   ========================================================================== */
+.reveal-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-1 {
+  transition-delay: 0.12s;
+}
+
+.delay-2 {
+  transition-delay: 0.22s;
+}
+
+.delay-3 {
+  transition-delay: 0.32s;
+}
+
+.delay-4 {
+  transition-delay: 0.42s;
+}
+
+/* ==========================================================================
+   RESPONSIVENESS BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    text-align: center;
+  }
+
+  .hero-editorial-col {
+    align-items: center;
+  }
+
+  .hero-buttons-cluster {
+    justify-content: center;
+  }
+
+  .editorial-stories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .featured-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .masonry-gallery-grid {
+    column-count: 2;
+  }
+
+  .footer-primary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .nav-menu {
+    display: none;
+  }
+
+  .mobile-hamburger-btn {
+    display: flex;
+  }
+
+  .section-editorial-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .drinks-carousel-viewport {
+    overflow-x: auto;
+  }
+
+  .card-summary-row {
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+  }
+
+  .card-event-quick {
+    display: none;
+  }
+
+  .editorial-stories-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .all-drinks-matrix {
+    grid-template-columns: 1fr;
+  }
+
+  .category-portal-card {
+    height: 300px;
+    padding: 2rem;
+  }
+
+  .category-title {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .container {
+    padding: 0 1.2rem;
+  }
+
+  .hero-giant-title {
+    font-size: clamp(3.8rem, 15vw, 5.4rem);
+    margin: 0.8rem 0 0.15rem;
+  }
+
+  .hero-tagline-gradient {
+    font-size: clamp(1.35rem, 5vw, 1.8rem);
+    margin-bottom: 0.8rem;
+  }
+
+  .hero-telemetry-strip {
+    display: flex;
+    gap: 0.85rem;
+    padding: 0.65rem 1rem;
+    width: min(94%, 420px);
+  }
+
+  .telem-val {
+    font-size: 1.2rem;
+  }
+
+  .telem-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+  }
+
+  .telem-divider {
+    height: 24px;
+  }
+
+  .ticker-metrics {
+    font-size: 0.95rem;
+  }
+
+  .countdown-clock-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .clock-num {
+    font-size: 2.4rem;
+  }
+
+  .masonry-gallery-grid {
+    column-count: 1;
+  }
+
+  .footer-primary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom-deck {
+    flex-direction: column;
+    gap: 1.2rem;
+    text-align: center;
+  }
+}

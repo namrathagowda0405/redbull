@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Oracle Red Bull Racing 2026 — Official Interactive Formula 1 Digital Experience. Built For More.">
+  <title>Oracle Red Bull Racing — Experience 2026</title>
+
+  <!-- Google Fonts: Bebas Neue (Editorial Racing Headlines) & Inter / Poppins (Body & Telemetry) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="theme-golden-hour">
+
+  <!-- Film Grain Overlay -->
+  <div class="ambient-noise" aria-hidden="true"></div>
+
+  <!-- Cursor-Following Spotlight -->
+  <div class="global-cursor-spotlight" id="cursor-spotlight" aria-hidden="true"></div>
+
+  <!-- Unified Red Bull Energy Trail (Cursor Motion & Page Scroll) -->
+  <div class="global-energy-trail" id="global-energy-trail" aria-hidden="true"></div>
+
+  <!-- ==========================================================================
+       PADDOCK NAVIGATION BAR
+       ========================================================================== -->
+  <nav class="paddock-navbar" role="navigation" aria-label="Main Navigation">
+    <div class="container nav-inner">
+      <!-- Brand Logo -->
+      <a href="#hero" class="nav-brand" aria-label="Oracle Red Bull Racing">
+        <div class="brand-bulls-logo">
+          <svg viewBox="0 0 100 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="28" r="22" fill="#FFB800" />
+            <path
+              d="M12 36C18 36 24 33 28 29C33 24 38 23 44 26C42 21 37 17 31 16C24 15 19 18 15 22C11 25 8 28 4 29C7 31 10 33 12 36Z"
+              fill="#E10600" />
+            <path d="M26 21C22 17 17 12 12 10C13 13 15 17 18 19C21 21 24 21 26 21Z" fill="#E10600" />
+            <path d="M4 29L1 35C4 36 7 35 10 33L4 29Z" fill="#E10600" />
+            <path
+              d="M88 36C82 36 76 33 72 29C67 24 62 23 56 26C58 21 63 17 69 16C76 15 81 18 85 22C89 25 92 28 96 29C93 31 90 33 88 36Z"
+              fill="#E10600" />
+            <path d="M74 21C78 17 83 12 88 10C87 13 85 17 82 19C79 21 76 21 74 21Z" fill="#E10600" />
+            <path d="M96 29L99 35C96 36 93 35 90 33L96 29Z" fill="#E10600" />
+          </svg>
+        </div>
+        <div class="brand-text-block">
+          <span class="brand-title">RED BULL</span>
+          <span class="brand-sub">RACING // 2026</span>
+        </div>
+      </a>
+
+      <!-- Center Links -->
+      <ul class="nav-menu">
+        <li><a href="#hero" class="nav-item">Formula 1</a></li>
+        <li><a href="#energy-drinks" class="nav-item">Energy Drinks</a></li>
+        <li><a href="#stories" class="nav-item">Stories</a></li>
+        <li><a href="#events" class="nav-item">Events</a></li>
+        <li><a href="#athletes" class="nav-item">Athletes</a></li>
+        <li><a href="#more-redbull" class="nav-item">Culture</a></li>
+        <li><a href="#gallery" class="nav-item">Gallery</a></li>
+      </ul>
+
+      <!-- Nav Actions: Theme Mode Toggle & Mobile Hamburger -->
+      <div class="nav-actions">
+        <!-- Theme Mode: Golden Hour Race ↔ Night Grand Prix -->
+        <button class="btn-theme-mode" id="theme-toggle-btn" type="button"
+          aria-label="Toggle Race Day / Night Grand Prix">
+          <span class="theme-icon" id="theme-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+            </svg>
+          </span>
+          <span class="theme-text" id="theme-label-text">Golden Hour</span>
+        </button>
+
+        <!-- Mobile Toggle Button -->
+        <button class="mobile-hamburger-btn" id="mobile-menu-btn" type="button" aria-label="Toggle Mobile Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer Overlay -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-label="Mobile Navigation">
+    <ul class="mobile-nav-list">
+      <li><a href="#hero" class="mobile-nav-link">Formula 1</a></li>
+      <li><a href="#energy-drinks" class="mobile-nav-link">Energy Drinks</a></li>
+      <li><a href="#stories" class="mobile-nav-link">Stories</a></li>
+      <li><a href="#events" class="mobile-nav-link">Events</a></li>
+      <li><a href="#athletes" class="mobile-nav-link">Athletes</a></li>
+      <li><a href="#more-redbull" class="mobile-nav-link">Culture</a></li>
+      <li><a href="#gallery" class="mobile-nav-link">Gallery</a></li>
+    </ul>
+  </div>
+
+  <!-- ==========================================================================
+       SECTION 1: HERO — FORMULA 1 EXPERIENCE
+       ========================================================================== -->
+  <header class="f1-hero-stage" id="hero">
+
+    <!-- "Speed Meets Shadow" Editorial Background -->
+    <div class="hero-editorial-backdrop" id="hero-backdrop" aria-hidden="true">
+      <div class="editorial-carbon-texture"></div>
+      <div class="editorial-poster-vignette"></div>
+      <!-- Gradual Scroll Overlay (Opacity Strictly Capped at 35% Max) -->
+      <div class="hero-scroll-dimmer-overlay" id="hero-scroll-overlay"></div>
+    </div>
+
+    <!-- Subtle Floating Golden Particles (Background Only) -->
+    <canvas id="hero-golden-particles-canvas" class="hero-golden-particles-canvas" aria-hidden="true"></canvas>
+
+    <!-- Master Hero Experience Content -->
+    <div class="container hero-f1-layout" id="hero-f1-layout">
+
+      <!-- Flanked Header Row: Left Flank + Center Title/Buttons + Right Flank -->
+      <div class="hero-header-flank-row">
+        <!-- Left Side Flank: Editorial Card (Top) + Miniature Track Layout (Bottom) -->
+        <div class="hero-flank-col hero-flank-left">
+          <!-- Left Side (Top): Small Vertical Editorial Card -->
+          <aside class="hero-editorial-card-left" aria-label="Team Editorial Identification">
+            <span class="editorial-card-team">ORACLE RED BULL RACING</span>
+            <span class="editorial-card-line" aria-hidden="true"></span>
+            <span class="editorial-card-season">2026 SEASON</span>
+            <span class="editorial-card-sub">FORMULA 1 WORLD CHAMPIONSHIP</span>
+          </aside>
+
+          <!-- Bottom-Left: Miniature Track Layout Outline (Spielberg Red Bull Ring) -->
+          <div class="hero-corner-graphic-left" aria-hidden="true">
+            <div class="corner-graphic-title">CIRCUIT SCHEMATIC</div>
+            <svg class="corner-track-svg" viewBox="0 0 140 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="track-path-line" d="M15 58 L55 58 C65 58 72 54 78 46 L104 18 C110 12 118 12 124 18 C128 22 126 30 118 34 L96 42 C90 45 84 50 84 56 L84 60 C84 64 80 66 74 66 L25 66 C18 66 15 62 15 58 Z" stroke="#FF8A00" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" />
+              <circle cx="121" cy="20" r="2.5" fill="#FF8A00" />
+              <circle cx="15" cy="58" r="2.5" fill="#00A8F0" />
+            </svg>
+            <div class="corner-track-name">RED BULL RING // 4.318 KM</div>
+          </div>
+        </div>
+
+        <!-- Center: Top Editorial Headline Block with Generous Whitespace -->
+        <div class="hero-editorial-center">
+          <!-- Soft Blue & Orange Light Blooms Behind Title -->
+          <div class="hero-title-light-blooms" aria-hidden="true">
+            <div class="title-bloom-blue"></div>
+            <div class="title-bloom-orange"></div>
+          </div>
+
+          <!-- Subtle Floating Blueprint Design Elements (Strictly 5-10% Opacity) -->
+          <div class="hero-title-blueprint-decor" aria-hidden="true">
+            <svg class="blueprint-vector vector-left" viewBox="0 0 160 40" fill="none">
+              <path d="M0 20 H100 L125 8 H160" stroke="rgba(0, 168, 240, 0.45)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <circle cx="125" cy="8" r="2.5" fill="#FF8A00" opacity="0.8" />
+            </svg>
+            <svg class="blueprint-vector vector-right" viewBox="0 0 160 40" fill="none">
+              <path d="M160 20 H60 L35 32 H0" stroke="rgba(0, 168, 240, 0.45)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <circle cx="35" cy="32" r="2.5" fill="#FF8A00" opacity="0.8" />
+            </svg>
+            <span class="blueprint-dot dot-top-left"></span>
+            <span class="blueprint-dot dot-top-right"></span>
+            <span class="blueprint-dot dot-bottom-left"></span>
+            <span class="blueprint-dot dot-bottom-right"></span>
+            <span class="blueprint-cross cross-tl">+</span>
+            <span class="blueprint-cross cross-tr">+</span>
+            <span class="blueprint-cross cross-bl">+</span>
+            <span class="blueprint-cross cross-br">+</span>
+            <svg class="blueprint-hex hex-left" viewBox="0 0 28 32" fill="none">
+              <polygon points="14,2 26,9 26,23 14,30 2,23 2,9" stroke="rgba(0, 168, 240, 0.45)" stroke-width="1.5" />
+            </svg>
+            <svg class="blueprint-hex hex-right" viewBox="0 0 28 32" fill="none">
+              <polygon points="14,2 26,9 26,23 14,30 2,23 2,9" stroke="rgba(255, 184, 0, 0.45)" stroke-width="1.5" />
+            </svg>
+          </div>
+
+          <!-- Small and Elegant Badge -->
+          <div class="hero-badge hero-entrance-badge">
+            <span class="badge-bullet-icon" aria-hidden="true">◉</span>
+            <span class="badge-headline-text">FORMULA 1 • ENERGY • PERFORMANCE</span>
+          </div>
+
+          <!-- Main Title: RED BULL (Largest Text) -->
+          <h1 class="hero-giant-title hero-entrance-title">
+            <span class="title-brand-main">RED BULL</span>
+          </h1>
+
+          <!-- Tagline: BORN TO PUSH LIMITS. (Directly Below in Bold Red-Orange Gradient) -->
+          <div class="hero-tagline-gradient hero-entrance-tagline">
+            BORN TO PUSH LIMITS.
+          </div>
+
+          <!-- Description (Only Two Lines with Generous Spacing) -->
+          <p class="hero-subheading hero-entrance-desc">
+            Discover the world of Formula 1, energy drinks, athletes, stories, and unforgettable Red Bull experiences.
+          </p>
+
+          <!-- Magnetic Action Buttons with Speed-Line Trails -->
+          <div class="hero-buttons-cluster hero-entrance-btns">
+            <a href="#energy-drinks" class="btn-magnetic btn-primary-f1" data-magnetic="true" id="btn-explore-racing">
+              <span class="btn-speed-line"></span>
+              <span class="btn-text">Explore Racing</span>
+              <span class="btn-arrow">→</span>
+            </a>
+
+            <button type="button" class="btn-magnetic btn-secondary-f1" id="btn-watch-highlights" data-magnetic="true">
+              <span class="btn-speed-line"></span>
+              <span class="btn-text">Watch Highlights</span>
+              <span class="play-icon">▶</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Side Flank: Telemetry HUD (Top) + Circular Telemetry Ring (Bottom) -->
+        <div class="hero-flank-col hero-flank-right">
+          <!-- Right Side (Top): Tiny Telemetry HUD Labels -->
+          <aside class="hero-telemetry-panel-right" aria-label="Chassis Quick Telemetry">
+            <div class="telem-hud-row">
+              <span class="telem-hud-dot" aria-hidden="true"></span>
+              <span class="telem-hud-key">CHASSIS</span>
+              <span class="telem-hud-val telem-hud-accent">RB21</span>
+            </div>
+            <div class="telem-hud-row">
+              <span class="telem-hud-key">MAX SPEED</span>
+              <span class="telem-hud-val">360 KM/H</span>
+            </div>
+            <div class="telem-hud-row">
+              <span class="telem-hud-key">AERO</span>
+              <span class="telem-hud-val telem-hud-accent">DRS ACTIVE</span>
+            </div>
+            <div class="telem-hud-row">
+              <span class="telem-hud-key">SERIES</span>
+              <span class="telem-hud-val">FIA WORLD CHAMPIONSHIP</span>
+            </div>
+          </aside>
+
+          <!-- Bottom-Right: Circular Telemetry Ring with Slow Rotation -->
+          <div class="hero-corner-graphic-right" aria-hidden="true">
+            <div class="corner-telemetry-dial">
+              <svg class="telemetry-dial-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="40" r="36" stroke="rgba(0, 168, 240, 0.35)" stroke-width="1" stroke-dasharray="2 3" />
+                <circle class="telemetry-rotating-ring" cx="40" cy="40" r="29" stroke="#FF8A00" stroke-width="2" stroke-dasharray="45 25 15 35" stroke-linecap="round" />
+                <line x1="40" y1="6" x2="40" y2="14" stroke="rgba(255, 255, 255, 0.6)" stroke-width="1.2" />
+                <line x1="40" y1="66" x2="40" y2="74" stroke="rgba(255, 255, 255, 0.6)" stroke-width="1.2" />
+                <line x1="6" y1="40" x2="14" y2="40" stroke="rgba(255, 255, 255, 0.6)" stroke-width="1.2" />
+                <line x1="66" y1="40" x2="74" y2="40" stroke="rgba(255, 255, 255, 0.6)" stroke-width="1.2" />
+                <circle cx="40" cy="40" r="10" fill="rgba(0, 168, 240, 0.16)" stroke="rgba(0, 168, 240, 0.5)" stroke-width="1" />
+                <circle cx="40" cy="40" r="3.5" fill="#FF8A00" />
+              </svg>
+            </div>
+            <div class="corner-telemetry-meta">
+              <span class="telemetry-meta-title">TELEMETRY RING</span>
+              <span class="telemetry-meta-status">SYS // 100% OPTIMAL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Editorial Car Stage: "Speed Meets Shadow" (~90% Width, Shifted Slightly Bottom-Right) -->
+      <div class="hero-car-editorial-stage" id="hero-car-stage">
+
+        <!-- Soft Blue and Orange Light Blooms Behind the Car Only -->
+        <div class="editorial-light-blooms" aria-hidden="true">
+          <div class="bloom-blue-racing"></div>
+          <div class="bloom-orange-redbull"></div>
+          <!-- Soft Ambient Glow Behind Rear Wing -->
+          <div class="bloom-rearwing-halo"></div>
+        </div>
+
+        <!-- FIX 2: Cinematic Spotlight Focused on Center/Front of RB21 -->
+        <div class="car-cinematic-spotlight" id="car-cinematic-spotlight" aria-hidden="true"></div>
+
+        <!-- Large RB21 Car Image Container (90% Width, Bottom-Right Magazine Framing) -->
+        <div class="hero-editorial-car-container" id="car-container">
+          <!-- Realistic Orange Floor Reflection Beneath the Car -->
+          <div class="car-floor-orange-reflection" aria-hidden="true"></div>
+
+          <!-- Soft Shadow to Give Depth -->
+          <div class="car-depth-chassis-shadow" aria-hidden="true"></div>
+
+          <div class="hero-editorial-car-wrap" id="hero-car-wrap">
+            <img src="assets/rb21-f1-car.jpg" alt="Oracle Red Bull Racing RB21 Formula 1 Car" class="hero-rb21-editorial-img" id="f1-car-image">
+
+            <!-- Luxury F1 Advertisement Corner Vignette -->
+            <div class="hero-car-ad-lighting" aria-hidden="true"></div>
+
+            <!-- Dark Vignette Overlay with Radial Cutout Mask (keeps rest of image dark with smooth vignette) -->
+            <div class="hero-car-dark-overlay" id="hero-car-dark-overlay" aria-hidden="true"></div>
+
+            <!-- Locked Studio Spotlight (centered on RB21 nose/cockpit, subtly tracks cursor) -->
+            <div class="hero-car-cursor-spotlight" id="hero-car-cursor-spotlight" aria-hidden="true"></div>
+
+            <!-- Very Slow Glossy Light Sweep Across the Car Every 8 Seconds -->
+            <div class="hero-car-glossy-sweep" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Static Glass Telemetry Card Below the Car -->
+      <div class="hero-glass-telemetry-card">
+        <div class="telem-card-item">
+          <span class="telem-card-label">TOP SPEED</span>
+          <span class="telem-card-val">360 KM/H</span>
+        </div>
+        <div class="telem-card-divider"></div>
+        <div class="telem-card-item">
+          <span class="telem-card-label">POWER UNIT</span>
+          <span class="telem-card-val">HONDA RBPT</span>
+        </div>
+        <div class="telem-card-divider"></div>
+        <div class="telem-card-item">
+          <span class="telem-card-label">CHAMPIONSHIPS</span>
+          <span class="telem-card-val">8× WORLD TITLES</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Bottom Bar -->
+    <div class="hero-bottom-ticker">
+      <div class="container ticker-inner">
+        <div class="ticker-metrics">
+          <span>ORACLE RED BULL RACING</span>
+          <span class="dot">•</span>
+          <span>FIA FORMULA ONE WORLD CHAMPIONSHIP</span>
+          <span class="dot">•</span>
+          <span>RB21 POWER UNIT ACTIVE</span>
+        </div>
+        <a href="#energy-drinks" class="scroll-cue-link">
+          <span>SCROLL TO EXPLORE</span>
+          <div class="scroll-indicator-arrow">↓</div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Smooth Section Flow Transition -->
+  <div class="section-flow-transition" aria-hidden="true">
+    <div class="flow-transition-gradient"></div>
+    <div class="flow-transition-radial"></div>
+    <div class="flow-transition-bloom"></div>
+    <div class="flow-transition-beam"></div>
+  </div>
+
+  <!-- Video Highlights Modal -->
+  <div class="highlights-modal-overlay" id="highlights-modal" aria-hidden="true">
+    <div class="highlights-modal-card">
+      <button class="modal-close-btn" id="highlights-modal-close" aria-label="Close highlights modal">✕</button>
+      <div class="modal-video-header">
+        <span class="modal-badge">RED BULL RACING // HIGHLIGHTS</span>
+        <h3 class="modal-video-title">Championship Decider at 340 km/h</h3>
+      </div>
+      <div class="video-embed-stage">
+        <img src="assets/f1-car-oracle.jpg" alt="Formula 1 Racing Action" class="video-preview-still">
+        <div class="video-overlay-pulse">
+          <div class="video-play-disc">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#FFFFFF">
+              <polygon points="6 4 20 12 6 20 6 4" />
+            </svg>
+          </div>
+          <span class="video-pulse-text">CLICK TO PLAY ON RED BULL TV</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SECTION 2: ENERGY DRINKS (REAL PRODUCTS — OFFICIAL CAN PHOTOGRAPHS)
+       ========================================================================== -->
+  <section class="section-energy-drinks" id="energy-drinks">
+    <div class="drinks-ambient-glow" id="drinks-ambient-glow"></div>
+
+    <div class="container">
+      <div class="section-editorial-header reveal-scroll">
+        <div>
+          <span class="section-category-tag">THE OFFICIAL LINEUP</span>
+          <h2 class="section-mega-title">ENERGY FOR EVERY PURSUIT</h2>
+          <p class="section-deck-copy">
+            The actual official Red Bull editions with real product photographs. Drag or click any edition to enlarge
+            the can, unlock the water splash, and shift the environment.
+          </p>
+        </div>
+        <div class="drinks-header-cta">
+          <button type="button" class="btn-view-all-drinks" id="btn-open-all-drinks">
+            <span>VIEW ALL ENERGY DRINKS</span>
+            <span class="arrow-glyph">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Draggable / Horizontal Coverflow Carousel -->
+      <div class="drinks-carousel-zone reveal-scroll delay-1">
+        <!-- Navigation Arrows -->
+        <button class="drinks-arrow-btn prev" id="drinks-nav-prev" aria-label="Previous energy drink">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+
+        <div class="drinks-carousel-viewport" id="drinks-viewport">
+          <div class="drinks-carousel-track" id="drinks-carousel-track">
+
+            <!-- 1. Red Bull Original -->
+            <div class="drink-item-card is-active" data-index="0" data-flavor="original" data-color="#003B8E"
+              data-glow="rgba(0, 59, 142, 0.5)">
+              <div class="drink-card-plate">
+                <!-- Water Splash Behind Active Can -->
+                <div class="water-splash-backdrop">
+                  <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M100 20 C110 50 140 60 160 80 C180 100 170 140 140 165 C110 190 70 185 45 160 C20 135 25 90 50 65 C75 40 90 -10 100 20 Z"
+                      fill="rgba(0, 168, 232, 0.45)" />
+                    <circle cx="155" cy="45" r="7" fill="rgba(0, 168, 232, 0.6)" />
+                    <circle cx="45" cy="55" r="5" fill="rgba(0, 168, 232, 0.5)" />
+                    <circle cx="175" cy="120" r="9" fill="rgba(0, 168, 232, 0.4)" />
+                  </svg>
+                </div>
+
+                <!-- Actual Official Product Can Photograph -->
+                <div class="drink-can-silhouette">
+                  <img src="assets/can-original.png" alt="Official Red Bull Original Energy Drink Can"
+                    class="real-can-photo">
+                </div>
+
+                <div class="drink-card-content">
+                  <span class="drink-edition-name text-racing-blue">THE ORIGINAL</span>
+                  <h3 class="drink-heading">Red Bull Original</h3>
+                  <p class="drink-flavor-lead">The timeless revitalizing formula with Alpine spring water, high-grade
+                    caffeine, and B-group vitamins.</p>
+                  <div class="drink-nutrition-badge">
+                    <span>80mg Caffeine</span>
+                    <span>110 kcal / 250ml</span>
+                  </div>
+                  <a href="#stories" class="btn-drink-explore">EXPLORE FORMULA →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Red Bull Sugarfree -->
+            <div class="drink-item-card" data-index="1" data-flavor="sugarfree" data-color="#00A8E8"
+              data-glow="rgba(0, 168, 232, 0.5)">
+              <div class="drink-card-plate">
+                <div class="water-splash-backdrop">
+                  <svg viewBox="0 0 200 200" fill="none">
+                    <path
+                      d="M100 20 C110 50 140 60 160 80 C180 100 170 140 140 165 C110 190 70 185 45 160 C20 135 25 90 50 65 C75 40 90 -10 100 20 Z"
+                      fill="rgba(0, 168, 232, 0.45)" />
+                  </svg>
+                </div>
+
+                <!-- Actual Official Product Can Photograph -->
+                <div class="drink-can-silhouette">
+                  <img src="assets/can-sugarfree.png" alt="Official Red Bull Sugarfree Energy Drink Can"
+                    class="real-can-photo">
+                </div>
+
+                <div class="drink-card-content">
+                  <span class="drink-edition-name text-cyan">ZERO SUGAR</span>
+                  <h3 class="drink-heading">Red Bull Sugarfree</h3>
+                  <p class="drink-flavor-lead">Wings without sugar. Same high-performance vitality sweetened with
+                    acesulfame K and sucralose.</p>
+                  <div class="drink-nutrition-badge">
+                    <span>Zero Sugar</span>
+                    <span>5 kcal / 250ml</span>
+                  </div>
+                  <a href="#stories" class="btn-drink-explore">EXPLORE FORMULA →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Red Bull Zero -->
+            <div class="drink-item-card" data-index="2" data-flavor="zero" data-color="#718096"
+              data-glow="rgba(113, 128, 150, 0.45)">
+              <div class="drink-card-plate">
+                <div class="water-splash-backdrop">
+                  <svg viewBox="0 0 200 200" fill="none">
+                    <path
+                      d="M100 20 C110 50 140 60 160 80 C180 100 170 140 140 165 C110 190 70 185 45 160 C20 135 25 90 50 65 C75 40 90 -10 100 20 Z"
+                      fill="rgba(113, 128, 150, 0.45)" />
+                  </svg>
+                </div>
+
+                <!-- Actual Official Product Can Photograph -->
+                <div class="drink-can-silhouette">
+                  <img src="assets/can-zero.png" alt="Official Red Bull Zero Energy Drink Can" class="real-can-photo">
+                </div>
+
+                <div class="drink-card-content">
+                  <span class="drink-edition-name text-metallic">STEALTH PROFILE</span>
+                  <h3 class="drink-heading">Red Bull Zero</h3>
+                  <p class="drink-flavor-lead">Authentic classic Red Bull flavor profile engineered with zero calories
+                    and zero sugar.</p>
+                  <div class="drink-nutrition-badge">
+                    <span>0 Calories</span>
+                    <span>80mg Caffeine</span>
+                  </div>
+                  <a href="#stories" class="btn-drink-explore">EXPLORE FORMULA →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Red Bull Pink Edition (White Peach) -->
+            <div class="drink-item-card" data-index="3" data-flavor="pink" data-color="#E64980"
+              data-glow="rgba(230, 73, 128, 0.5)">
+              <div class="drink-card-plate">
+                <div class="water-splash-backdrop">
+                  <svg viewBox="0 0 200 200" fill="none">
+                    <path
+                      d="M100 20 C110 50 140 60 160 80 C180 100 170 140 140 165 C110 190 70 185 45 160 C20 135 25 90 50 65 C75 40 90 -10 100 20 Z"
+                      fill="rgba(230, 73, 128, 0.45)" />
+                  </svg>
+                </div>
+
+                <!-- Actual Official Product Can Photograph -->
+                <div class="drink-can-silhouette">
+                  <img src="assets/can-pink.png" alt="Official Red Bull Pink Edition White Peach Can"
+                    class="real-can-photo">
+                </div>
+
+                <div class="drink-card-content">
+                  <span class="drink-edition-name text-pink">THE PINK EDITION</span>
+                  <h3 class="drink-heading">Pink Edition: White Peach</h3>
+                  <p class="drink-flavor-lead">Delicate, floral Japanese white peach infusion offering a silky sweet
+                    kick with complete vitality.</p>
+                  <div class="drink-nutrition-badge">
+                    <span>White Peach</span>
+                    <span>Premium Botanicals</span>
+                  </div>
+                  <a href="#stories" class="btn-drink-explore">EXPLORE FORMULA →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. Red Bull Yellow Edition (Tropical Fruits) -->
+            <div class="drink-item-card" data-index="4" data-flavor="yellow" data-color="#FFB800"
+              data-glow="rgba(255, 184, 0, 0.5)">
+              <div class="drink-card-plate">
+                <div class="water-splash-backdrop">
+                  <svg viewBox="0 0 200 200" fill="none">
+                    <path
+                      d="M100 20 C110 50 140 60 160 80 C180 100 170 140 140 165 C110 190 70 185 45 160 C20 135 25 90 50 65 C75 40 90 -10 100 20 Z"
+                      fill="rgba(255, 184, 0, 0.45)" />
+                  </svg>
+                </div>
+
+                <!-- Actual Official Product Can Photograph -->
+                <div class="drink-can-silhouette">
+                  <img src="assets/can-yellow.png" alt="Official Red Bull Yellow Edition Tropical Fruits Can"
+                    class="real-can-photo">
+                </div>
+
+                <div class="drink-card-content">
+                  <span class="drink-edition-name text-gold">THE YELLOW EDITION</span>
+                  <h3 class="drink-heading">Yellow Edition: Tropical</h3>
+                  <p class="drink-flavor-lead">Vibrant tropical fruits blend: mango, passion fruit, and golden papaya
+                    essence made for summer heat.</p>
+                  <div class="drink-nutrition-badge">
+                    <span>Tropical Medley</span>
+                    <span>115 kcal / 250ml</span>
+                  </div>
+                  <a href="#stories" class="btn-drink-explore">EXPLORE FORMULA →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. Red Bull Red Edition (Watermelon) -->
+            <div class="drink-item-card" data-index="5" data-flavor="red" data-color="#E10600"
+              data-glow="rgba(225, 6, 0, 0.5)">
+              <div class="drink-card-plate">
+                <div class="water-splash-backdrop">
+                  <svg viewBox="0 0 200 200" fill="none">
+                    <path
+                      d="M100 20 C110 50 140 60 160 80 C180 100 170 140 140 165 C110 190 70 185 45 160 C20 135 25 90 50 65 C75 40 90 -10 100 20 Z"
+                      fill="rgba(225, 6, 0, 0.45)" />
+                  </svg>
+                </div>
+
+                <!-- Actual Official Product Can Photograph -->
+                <div class="drink-can-silhouette">
+                  <img src="assets/can-red.png" alt="Official Red Bull Red Edition Watermelon Can"
+                    class="real-can-photo">
+                </div>
+
+                <div class="drink-card-content">
+                  <span class="drink-edition-name text-red">THE RED EDITION</span>
+                  <h3 class="drink-heading">Red Edition: Watermelon</h3>
+                  <p class="drink-flavor-lead">Crisp and refreshing red watermelon with an invigorating sweet punch that
+                    powers intensive training.</p>
+                  <div class="drink-nutrition-badge">
+                    <span>Watermelon</span>
+                    <span>Summer Burst</span>
+                  </div>
+                  <a href="#stories" class="btn-drink-explore">EXPLORE FORMULA →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. Red Bull Green Edition (Curuba-Elderflower) -->
+            <div class="drink-item-card" data-index="6" data-flavor="green" data-color="#2ECC71"
+              data-glow="rgba(46, 204, 113, 0.5)">
+              <div class="drink-card-plate">
+                <div class="water-splash-backdrop">
+                  <svg viewBox="0 0 200 200" fill="none">
+                    <path
+                      d="M100 20 C110 50 140 60 160 80 C180 100 170 140 140 165 C110 190 70 185 45 160 C20 135 25 90 50 65 C75 40 90 -10 100 20 Z"
+                      fill="rgba(46, 204, 113, 0.45)" />
+                  </svg>
+                </div>
+
+                <!-- Actual Official Product Can Photograph -->
+                <div class="drink-can-silhouette">
+                  <img src="assets/can-green.png" alt="Official Red Bull Green Edition Can" class="real-can-photo">
+                </div>
+
+                <div class="drink-card-content">
+                  <span class="drink-edition-name text-green">THE GREEN EDITION</span>
+                  <h3 class="drink-heading">Green Edition: Curuba</h3>
+                  <p class="drink-flavor-lead">Exotic Latin American curuba fruit blended with subtle elderflower notes
+                    for an ultra-refreshing taste.</p>
+                  <div class="drink-nutrition-badge">
+                    <span>Curuba & Elderflower</span>
+                    <span>Spring Edition</span>
+                  </div>
+                  <a href="#stories" class="btn-drink-explore">EXPLORE FORMULA →</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="drinks-arrow-btn next" id="drinks-nav-next" aria-label="Next energy drink">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Carousel Pagination Dots -->
+      <div class="drinks-dots-row" id="drinks-dots-row"></div>
+    </div>
+  </section>
+
+  <!-- Complete Lineup Modal -->
+  <div class="all-drinks-modal-shade" id="all-drinks-modal" aria-hidden="true">
+    <div class="all-drinks-modal-box">
+      <button class="modal-close-btn" id="all-drinks-close-btn" aria-label="Close lineup modal">✕</button>
+      <div class="all-drinks-header">
+        <span class="section-category-tag">FULL ARCHIVE // OFFICIAL EDITIONS</span>
+        <h3 class="modal-lineup-title">The Complete Red Bull Collection</h3>
+      </div>
+      <div class="all-drinks-matrix">
+        <div class="matrix-card">
+          <h4>Original</h4>
+          <p>The iconic recipe with taurine and B-group vitamins. 80mg caffeine per 250ml.</p>
+        </div>
+        <div class="matrix-card">
+          <h4>Sugarfree</h4>
+          <p>Wings without sugar. Only 5 calories with identical performance alertness.</p>
+        </div>
+        <div class="matrix-card">
+          <h4>Zero</h4>
+          <p>Zero calories and zero sugar with the authentic taste of the Original formula.</p>
+        </div>
+        <div class="matrix-card">
+          <h4>Pink Edition</h4>
+          <p>Silky white peach flavor crafted with alpine spring water and natural extracts.</p>
+        </div>
+        <div class="matrix-card">
+          <h4>Yellow Edition</h4>
+          <p>Tropical fruit medley featuring ripe mango, passion fruit, and golden papaya.</p>
+        </div>
+        <div class="matrix-card">
+          <h4>Red Edition</h4>
+          <p>Refreshing sweet summer watermelon flavor for intense training sessions.</p>
+        </div>
+        <div class="matrix-card">
+          <h4>Green Edition</h4>
+          <p>Exotic Curuba-Elderflower infusion delivering floral botanical energy.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Smooth Section Flow Transition -->
+  <div class="section-flow-transition" aria-hidden="true">
+    <div class="flow-transition-gradient"></div>
+    <div class="flow-transition-radial"></div>
+    <div class="flow-transition-bloom"></div>
+    <div class="flow-transition-beam"></div>
+  </div>
+
+  <!-- ==========================================================================
+       SECTION 3: STORIES — EDITORIAL IMAGE CARDS
+       ========================================================================== -->
+  <section class="section-stories" id="stories">
+    <div class="container">
+      <div class="section-editorial-header reveal-scroll">
+        <div>
+          <span class="section-category-tag">FEATURED STORIES</span>
+          <h2 class="section-mega-title">FROM THE WORLD OF RED BULL</h2>
+          <p class="section-deck-copy">
+            The latest stories from Formula 1, music, adventure sports, and athletes.
+          </p>
+        </div>
+      </div>
+
+      <!-- Editorial Story Grid (6 Real Stories) -->
+      <div class="editorial-stories-grid">
+
+        <!-- Story 1: Sandro Dias -->
+        <article class="story-image-card reveal-scroll">
+          <div class="story-photo-wrap">
+            <img src="assets/story-sandro-dias.jpg"
+              alt="Sandro Dias breaks two world records on the biggest skate ramp ever" class="story-hero-img"
+              loading="lazy">
+            <div class="story-vignette"></div>
+          </div>
+          <div class="story-overlay-body">
+            <div class="story-badge-cluster">
+              <span class="story-pill-cat">SKATEBOARDING</span>
+              <span class="story-reading-time">6 MIN.</span>
+            </div>
+            <h3 class="story-headline">Sandro Dias breaks two world records on the biggest skate ramp ever.</h3>
+            <div class="story-cta-wrap">
+              <a href="#hero" class="btn-read-story-slide">
+                <span class="btn-text">Read Story</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Story 2: What is Red Bull 64 Bars? -->
+        <article class="story-image-card reveal-scroll delay-1">
+          <div class="story-photo-wrap">
+            <img src="assets/story-64-bars.jpg" alt="What is Red Bull 64 Bars rap and hip-hop booth"
+              class="story-hero-img" loading="lazy">
+            <div class="story-vignette"></div>
+          </div>
+          <div class="story-overlay-body">
+            <div class="story-badge-cluster">
+              <span class="story-pill-cat">MUSIC</span>
+              <span class="story-reading-time">2 MIN.</span>
+            </div>
+            <h3 class="story-headline">What is Red Bull 64 Bars?</h3>
+            <div class="story-cta-wrap">
+              <a href="#hero" class="btn-read-story-slide">
+                <span class="btn-text">Read Story</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Story 3: B-Girl Bar-B -->
+        <article class="story-image-card reveal-scroll delay-2">
+          <div class="story-photo-wrap">
+            <img src="assets/story-bar-b.jpg"
+              alt="Back with a bang: B-Girl Bar-B's road to the Red Bull BC One World Final Tokyo"
+              class="story-hero-img" loading="lazy">
+            <div class="story-vignette"></div>
+          </div>
+          <div class="story-overlay-body">
+            <div class="story-badge-cluster">
+              <span class="story-pill-cat">BREAKING</span>
+              <span class="story-reading-time">5 MIN.</span>
+            </div>
+            <h3 class="story-headline">Back with a bang: B-Girl Bar-B's road to the Red Bull BC One World Final Tokyo.
+            </h3>
+            <div class="story-cta-wrap">
+              <a href="#hero" class="btn-read-story-slide">
+                <span class="btn-text">Read Story</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Story 4: Lyrics to '43 Ki Hawa' by Vijay DK × Karan Kanchan -->
+        <article class="story-image-card reveal-scroll">
+          <div class="story-photo-wrap">
+            <img src="assets/story-vijay-dk.jpg" alt="Lyrics to 43 Ki Hawa by Vijay DK × Karan Kanchan"
+              class="story-hero-img" loading="lazy">
+            <div class="story-vignette"></div>
+          </div>
+          <div class="story-overlay-body">
+            <div class="story-badge-cluster">
+              <span class="story-pill-cat">MUSIC</span>
+              <span class="story-reading-time">3 MIN.</span>
+            </div>
+            <h3 class="story-headline">Lyrics to "43 Ki Hawa" by Vijay DK × Karan Kanchan.</h3>
+            <div class="story-cta-wrap">
+              <a href="#hero" class="btn-read-story-slide">
+                <span class="btn-text">Read Story</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Story 5: B-Boy Flying Machine -->
+        <article class="story-image-card reveal-scroll delay-1">
+          <div class="story-photo-wrap">
+            <img src="assets/story-flying-machine.jpg"
+              alt="B-Boy Flying Machine: Breaking records with Red Bull BC One India wins" class="story-hero-img"
+              loading="lazy">
+            <div class="story-vignette"></div>
+          </div>
+          <div class="story-overlay-body">
+            <div class="story-badge-cluster">
+              <span class="story-pill-cat">BREAKING</span>
+              <span class="story-reading-time">5 MIN.</span>
+            </div>
+            <h3 class="story-headline">B-Boy Flying Machine: Breaking records with Red Bull BC One India wins.</h3>
+            <div class="story-cta-wrap">
+              <a href="#hero" class="btn-read-story-slide">
+                <span class="btn-text">Read Story</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Story 6: Arvid Lindblad -->
+        <article class="story-image-card reveal-scroll delay-2">
+          <div class="story-photo-wrap">
+            <img src="assets/story-lindblad.jpg" alt="Arvid Lindblad: The next generation of Red Bull Racing talent"
+              class="story-hero-img" loading="lazy">
+            <div class="story-vignette"></div>
+          </div>
+          <div class="story-overlay-body">
+            <div class="story-badge-cluster">
+              <span class="story-pill-cat">MOTORSPORT</span>
+              <span class="story-reading-time">4 MIN.</span>
+            </div>
+            <h3 class="story-headline">Arvid Lindblad: The next generation of Red Bull Racing talent.</h3>
+            <div class="story-cta-wrap">
+              <a href="#hero" class="btn-read-story-slide">
+                <span class="btn-text">Read Story</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- View All Stories Action Button -->
+      <div class="stories-footer-action reveal-scroll delay-3">
+        <a href="#hero" class="btn-magnetic btn-view-all-stories" data-magnetic="true" id="btn-view-all-stories">
+          <span class="btn-speed-line"></span>
+          <span class="btn-text">View All Stories</span>
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Smooth Section Flow Transition -->
+  <div class="section-flow-transition" aria-hidden="true">
+    <div class="flow-transition-gradient"></div>
+    <div class="flow-transition-radial"></div>
+    <div class="flow-transition-bloom"></div>
+    <div class="flow-transition-beam"></div>
+  </div>
+
+  <!-- ==========================================================================
+       SECTION 4: EVENTS — FEATURED & EXPANDABLE GLASS CARDS
+       ========================================================================== -->
+  <section class="section-events" id="events">
+    <div class="container">
+      <div class="section-editorial-header reveal-scroll">
+        <div>
+          <span class="section-category-tag">OFFICIAL CALENDAR</span>
+          <h2 class="section-mega-title">LIVE WORLD SPECTACLES</h2>
+          <p class="section-deck-copy">
+            Track Formula 1 Grand Prix weekends, world series championships, and high-adrenaline tournaments.
+          </p>
+        </div>
+      </div>
+
+      <!-- 1. Featured Event Billboard with Functional Live Countdown -->
+      <div class="featured-event-billboard reveal-scroll">
+        <div class="featured-poster-media">
+          <img src="assets/event-showrun.jpg" alt="Oracle Red Bull Racing Grand Prix Weekend Poster"
+            class="featured-poster-img">
+          <div class="featured-poster-veil"></div>
+        </div>
+
+        <div class="featured-content-grid">
+          <div class="featured-details-col">
+            <div class="live-event-badge">
+              <span class="pulse-beacon"></span>
+              <span>FEATURED WORLD CHAMPIONSHIP EVENT</span>
+            </div>
+            <h3 class="featured-title">ORACLE RED BULL RACING SHOWRUN & GP</h3>
+            <div class="featured-meta-row">
+              <span class="featured-location">📍 Buddh International Circuit / Mumbai Promenade</span>
+              <span class="featured-date">🗓️ June 14–16, 2026</span>
+            </div>
+            <p class="featured-synopsis">
+              Experience the screaming V10 & V6 Turbo-Hybrid machines burning rubber on city asphalt. Live donut
+              burnouts, pit-stop challenges, and driver telemetry sessions with Max Verstappen and the championship
+              crew.
+            </p>
+            <div class="featured-actions">
+              <a href="#hero" class="btn-magnetic btn-primary-f1" data-magnetic="true">
+                <span class="btn-speed-line"></span>
+                <span class="btn-text">REGISTER FOR PADDOCK PASSES</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Live Countdown Timer -->
+          <div class="featured-countdown-col">
+            <div class="countdown-glass-box">
+              <span class="countdown-heading">RACE COUNTDOWN</span>
+              <div class="countdown-clock-grid">
+                <div class="clock-unit">
+                  <span class="clock-num" id="event-days">18</span>
+                  <span class="clock-label">DAYS</span>
+                </div>
+                <div class="clock-unit">
+                  <span class="clock-num" id="event-hours">14</span>
+                  <span class="clock-label">HOURS</span>
+                </div>
+                <div class="clock-unit">
+                  <span class="clock-num" id="event-minutes">32</span>
+                  <span class="clock-label">MINS</span>
+                </div>
+                <div class="clock-unit">
+                  <span class="clock-num" id="event-seconds">45</span>
+                  <span class="clock-label">SECS</span>
+                </div>
+              </div>
+              <div class="clock-status-live">
+                <span class="live-indicator-dot"></span>
+                <span>OFFICIAL FIA TIMING SYNC ACTIVE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Expandable Glass Event Cards Below -->
+      <div class="events-expandable-grid">
+
+        <!-- Glass Event 1 -->
+        <div class="glass-event-card reveal-scroll" data-expanded="false">
+          <div class="card-summary-row">
+            <div class="event-type-chip">WORLD SERIES</div>
+            <h4 class="card-event-title">Red Bull Cliff Diving: Polignano a Mare</h4>
+            <div class="card-event-quick">July 08, 2026 • Italy</div>
+            <button type="button" class="btn-expand-card" aria-label="Toggle event details">
+              <span class="expand-icon">+</span>
+            </button>
+          </div>
+          <div class="card-expanded-drawer">
+            <p class="drawer-desc">
+              From the 27-meter rooftop platform affixed to prehistoric limestone cliffs into the emerald Adriatic Sea
+              at 85 km/h. Watch Molly Carlson and Aidan Heslop battle for world series points.
+            </p>
+            <div class="drawer-actions">
+              <span class="drawer-status">🎟️ Free Public Viewing Platforms Available</span>
+              <a href="#hero" class="btn-drawer-register">Reserve VIP Balcony →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Glass Event 2 -->
+        <div class="glass-event-card reveal-scroll delay-1" data-expanded="false">
+          <div class="card-summary-row">
+            <div class="event-type-chip">STREET DANCE</div>
+            <h4 class="card-event-title">Red Bull Dance Your Style India Finals</h4>
+            <div class="card-event-quick">August 22, 2026 • Mumbai</div>
+            <button type="button" class="btn-expand-card" aria-label="Toggle event details">
+              <span class="expand-icon">+</span>
+            </button>
+          </div>
+          <div class="card-expanded-drawer">
+            <p class="drawer-desc">
+              16 of India's most expressive street dancers battle at the iconic Royal Opera House in Mumbai. No judges —
+              the crowd decides who represents India at the World Final.
+            </p>
+            <div class="drawer-actions">
+              <span class="drawer-status">🔥 Ticket Allocation: 90% Filled</span>
+              <a href="#hero" class="btn-drawer-register">Audition Passports →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Glass Event 3 -->
+        <div class="glass-event-card reveal-scroll delay-2" data-expanded="false">
+          <div class="card-summary-row">
+            <div class="event-type-chip">GLOBAL RUN</div>
+            <h4 class="card-event-title">Wings For Life World Run 2026</h4>
+            <div class="card-event-quick">May 03, 2026 • Global Simultaneous</div>
+            <button type="button" class="btn-expand-card" aria-label="Toggle event details">
+              <span class="expand-icon">+</span>
+            </button>
+          </div>
+          <div class="card-expanded-drawer">
+            <p class="drawer-desc">
+              The race with no finish line. The Catcher Car pursues runners worldwide 30 minutes after start. 100% of
+              all entry fees and donations go directly to finding a cure for spinal cord injury.
+            </p>
+            <div class="drawer-actions">
+              <span class="drawer-status">❤️ 100% Proceeds to Spinal Cord Research</span>
+              <a href="#hero" class="btn-drawer-register">Register To Run →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Smooth Section Flow Transition -->
+  <div class="section-flow-transition" aria-hidden="true">
+    <div class="flow-transition-gradient"></div>
+    <div class="flow-transition-radial"></div>
+    <div class="flow-transition-bloom"></div>
+    <div class="flow-transition-beam"></div>
+  </div>
+
+  <!-- ==========================================================================
+       SECTION 5: ATHLETES — LARGE PORTRAIT CARDS HORIZONTAL SLIDER
+       ========================================================================== -->
+  <section class="section-athletes" id="athletes">
+    <div class="container">
+      <!-- Section Editorial Header -->
+      <div class="section-editorial-header reveal-scroll">
+        <div>
+          <span class="section-category-tag">ATHLETES</span>
+          <h2 class="section-mega-title">MEET THE ATHLETES</h2>
+          <p class="section-deck-copy">
+            Get to know the athletes from the world of Red Bull. Discover their stories, achievements and the sports
+            they represent.
+          </p>
+        </div>
+        <div class="athlete-slider-arrows">
+          <button class="slider-arrow-btn" id="athlete-prev-btn" aria-label="Previous athlete">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button class="slider-arrow-btn" id="athlete-next-btn" aria-label="Next athlete">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Clean Horizontal Carousel: Max Verstappen First + Remaining Athletes Beside Him -->
+      <div class="athletes-carousel-stage reveal-scroll delay-1">
+        <div class="athletes-slider-viewport" id="athletes-viewport">
+          <div class="athletes-slider-track" id="athletes-track">
+
+            <!-- 1. Max Verstappen — Formula 1 (Featured Athlete) -->
+            <div class="athlete-portrait-card">
+              <div class="portrait-image-stage">
+                <img src="assets/athlete-verstappen.jpg" alt="Max Verstappen" class="portrait-img" loading="lazy">
+                <div class="athlete-card-badges">
+                  <span class="athlete-pill-badge pill-featured">Featured Athlete</span>
+                </div>
+                <div class="portrait-dark-veil"></div>
+                <div class="portrait-orange-gradient" aria-hidden="true"></div>
+              </div>
+              <div class="athlete-card-info">
+                <span class="athlete-sport-category">Formula 1</span>
+                <h3 class="athlete-full-title">MAX VERSTAPPEN</h3>
+              </div>
+            </div>
+
+            <!-- 2. KL Rahul — Cricket — 🇮🇳 India -->
+            <div class="athlete-portrait-card">
+              <div class="portrait-image-stage">
+                <img src="assets/athlete-rahul.jpg" alt="KL Rahul" class="portrait-img" loading="lazy">
+                <div class="athlete-card-badges">
+                  <span class="athlete-pill-badge"><span class="flag-icon">🇮🇳</span> India</span>
+                </div>
+                <div class="portrait-dark-veil"></div>
+                <div class="portrait-orange-gradient" aria-hidden="true"></div>
+              </div>
+              <div class="athlete-card-info">
+                <span class="athlete-sport-category">Cricket</span>
+                <h3 class="athlete-full-title">KL RAHUL</h3>
+              </div>
+            </div>
+
+            <!-- 3. Jonathan Amaral — Gaming — 🇮🇳 India -->
+            <div class="athlete-portrait-card">
+              <div class="portrait-image-stage">
+                <img src="assets/athlete-amaral.jpg" alt="Jonathan Amaral" class="portrait-img" loading="lazy">
+                <div class="athlete-card-badges">
+                  <span class="athlete-pill-badge"><span class="flag-icon">🇮🇳</span> India</span>
+                </div>
+                <div class="portrait-dark-veil"></div>
+                <div class="portrait-orange-gradient" aria-hidden="true"></div>
+              </div>
+              <div class="athlete-card-info">
+                <span class="athlete-sport-category">Gaming</span>
+                <h3 class="athlete-full-title">JONATHAN AMARAL</h3>
+              </div>
+            </div>
+
+            <!-- 4. Harith Noah — Rally Raid — 🇮🇳 India -->
+            <div class="athlete-portrait-card">
+              <div class="portrait-image-stage">
+                <img src="assets/athlete-noah.jpg" alt="Harith Noah" class="portrait-img" loading="lazy">
+                <div class="athlete-card-badges">
+                  <span class="athlete-pill-badge"><span class="flag-icon">🇮🇳</span> India</span>
+                </div>
+                <div class="portrait-dark-veil"></div>
+                <div class="portrait-orange-gradient" aria-hidden="true"></div>
+              </div>
+              <div class="athlete-card-info">
+                <span class="athlete-sport-category">Rally Raid</span>
+                <h3 class="athlete-full-title">HARITH NOAH</h3>
+              </div>
+            </div>
+
+            <!-- 5. Riyan Parag — Cricket — 🇮🇳 India -->
+            <div class="athlete-portrait-card">
+              <div class="portrait-image-stage">
+                <img src="assets/athlete-parag.jpg" alt="Riyan Parag" class="portrait-img" loading="lazy">
+                <div class="athlete-card-badges">
+                  <span class="athlete-pill-badge"><span class="flag-icon">🇮🇳</span> India</span>
+                </div>
+                <div class="portrait-dark-veil"></div>
+                <div class="portrait-orange-gradient" aria-hidden="true"></div>
+              </div>
+              <div class="athlete-card-info">
+                <span class="athlete-sport-category">Cricket</span>
+                <h3 class="athlete-full-title">RIYAN PARAG</h3>
+              </div>
+            </div>
+
+            <!-- 6. Animesh Kujur — Athletics — 🇮🇳 India -->
+            <div class="athlete-portrait-card">
+              <div class="portrait-image-stage">
+                <img src="assets/athlete-kujur.png" alt="Animesh Kujur" class="portrait-img" loading="lazy">
+                <div class="athlete-card-badges">
+                  <span class="athlete-pill-badge"><span class="flag-icon">🇮🇳</span> India</span>
+                </div>
+                <div class="portrait-dark-veil"></div>
+                <div class="portrait-orange-gradient" aria-hidden="true"></div>
+              </div>
+              <div class="athlete-card-info">
+                <span class="athlete-sport-category">Athletics</span>
+                <h3 class="athlete-full-title">ANIMESH KUJUR</h3>
+              </div>
+            </div>
+
+            <!-- 7. Molly Carlson — Cliff Diving -->
+            <div class="athlete-portrait-card">
+              <div class="portrait-image-stage">
+                <img src="assets/athlete-carlson.jpg" alt="Molly Carlson" class="portrait-img" loading="lazy">
+                <div class="portrait-dark-veil"></div>
+                <div class="portrait-orange-gradient" aria-hidden="true"></div>
+              </div>
+              <div class="athlete-card-info">
+                <span class="athlete-sport-category">Cliff Diving</span>
+                <h3 class="athlete-full-title">MOLLY CARLSON</h3>
+              </div>
+            </div>
+
+            <!-- 8. Sky Brown — Skateboarding -->
+            <div class="athlete-portrait-card">
+              <div class="portrait-image-stage">
+                <img src="assets/athlete-sky.jpg" alt="Sky Brown" class="portrait-img" loading="lazy">
+                <div class="portrait-dark-veil"></div>
+                <div class="portrait-orange-gradient" aria-hidden="true"></div>
+              </div>
+              <div class="athlete-card-info">
+                <span class="athlete-sport-category">Skateboarding</span>
+                <h3 class="athlete-full-title">SKY BROWN</h3>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Smooth Section Flow Transition -->
+  <div class="section-flow-transition" aria-hidden="true">
+    <div class="flow-transition-gradient"></div>
+    <div class="flow-transition-radial"></div>
+    <div class="flow-transition-bloom"></div>
+    <div class="flow-transition-beam"></div>
+  </div>
+
+  <!-- ==========================================================================
+       SECTION 6: MORE FROM RED BULL — FULL-WIDTH IMMERSIVE CATEGORIES
+       ========================================================================== -->
+  <section class="section-more-redbull" id="more-redbull">
+    <div class="container">
+      <div class="section-editorial-header reveal-scroll">
+        <div>
+          <span class="section-category-tag">THE UNIVERSE</span>
+          <h2 class="section-mega-title">MORE FROM RED BULL</h2>
+          <p class="section-deck-copy">
+            Immersive portals across the four pillars of human adrenaline, speed, and creative rebellion.
+          </p>
+        </div>
+      </div>
+
+      <!-- 4 Full-Width Image Cards with Cinematic Hover Zoom -->
+      <div class="more-portals-deck">
+
+        <!-- 1. Motorsports -->
+        <a href="#hero" class="category-portal-card reveal-scroll">
+          <div class="category-image-wrap">
+            <img src="assets/portal-motorsports.jpg" alt="Motorsports" class="category-bg-photo" loading="lazy">
+            <div class="category-curtain"></div>
+          </div>
+          <div class="category-content-layer">
+            <span class="category-number">01 // TRACK & HYPER-VELOCITY</span>
+            <h3 class="category-title">MOTORSPORTS</h3>
+            <p class="category-synopsis">
+              From Oracle Red Bull Racing in Formula 1 to MotoGP, Drift Masters, World Rally Championship, and
+              Supercross.
+            </p>
+            <span class="category-enter-arrow">ENTER MOTORSPORTS REALM →</span>
+          </div>
+        </a>
+
+        <!-- 2. Adventure -->
+        <a href="#athletes" class="category-portal-card reveal-scroll delay-1">
+          <div class="category-image-wrap">
+            <img src="assets/portal-adventure.jpg" alt="Adventure Sports" class="category-bg-photo" loading="lazy">
+            <div class="category-curtain"></div>
+          </div>
+          <div class="category-content-layer">
+            <span class="category-number">02 // GRAVITY-DEFYING EXPEDITIONS</span>
+            <h3 class="category-title">ADVENTURE</h3>
+            <p class="category-synopsis">
+              Cliff diving into oceanic chasms, big-wave surfing at Teahupo'o, downhill mountain biking at Red Bull
+              Rampage, and high-altitude wingsuit flights.
+            </p>
+            <span class="category-enter-arrow">ENTER ADVENTURE REALM →</span>
+          </div>
+        </a>
+
+        <!-- 3. Music -->
+        <a href="#events" class="category-portal-card reveal-scroll delay-2">
+          <div class="category-image-wrap">
+            <img src="assets/portal-music.jpg" alt="Music and Culture" class="category-bg-photo" loading="lazy">
+            <div class="category-curtain"></div>
+          </div>
+          <div class="category-content-layer">
+            <span class="category-number">03 // SOUND & UNDERGROUND RHYTHM</span>
+            <h3 class="category-title">MUSIC & CULTURE</h3>
+            <p class="category-synopsis">
+              Red Bull Dance Your Style, BC One breaking battles, Red Bull Jukebox, recording studios, and cultural
+              sound clash clashes worldwide.
+            </p>
+            <span class="category-enter-arrow">ENTER MUSIC REALM →</span>
+          </div>
+        </a>
+
+        <!-- 4. Gaming -->
+        <a href="#hero" class="category-portal-card reveal-scroll delay-3">
+          <div class="category-image-wrap">
+            <img src="assets/portal-gaming.jpg" alt="Gaming and Esports" class="category-bg-photo" loading="lazy">
+            <div class="category-curtain"></div>
+          </div>
+          <div class="category-content-layer">
+            <span class="category-number">04 // VIRTUAL SUPREMACY</span>
+            <h3 class="category-title">GAMING & ESPORTS</h3>
+            <p class="category-synopsis">
+              Red Bull Kumite fighting championships, Wololo strategy summits, League of Legends arenas, and Oracle Red
+              Bull Sim Racing academies.
+            </p>
+            <span class="category-enter-arrow">ENTER GAMING REALM →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Smooth Section Flow Transition -->
+  <div class="section-flow-transition" aria-hidden="true">
+    <div class="flow-transition-gradient"></div>
+    <div class="flow-transition-radial"></div>
+    <div class="flow-transition-bloom"></div>
+    <div class="flow-transition-beam"></div>
+  </div>
+
+  <!-- ==========================================================================
+       SECTION 7: GALLERY — PINTEREST MASONRY & INTERACTIVE LIGHTBOX
+       ========================================================================== -->
+  <section class="section-gallery" id="gallery">
+    <div class="container">
+      <div class="section-editorial-header reveal-scroll">
+        <div>
+          <span class="section-category-tag">VISUAL ARCHIVE</span>
+          <h2 class="section-mega-title">THE WORLD THROUGH RED BULL.</h2>
+          <p class="section-deck-copy">
+            A curated collection of iconic moments from Formula 1, adventure sports, music, culture and global Red Bull
+            events.
+          </p>
+        </div>
+      </div>
+
+      <!-- Pinterest Masonry Gallery Grid -->
+      <div class="masonry-gallery-grid">
+
+        <!-- 1. F1 Video Card 1: Singapore Night Grand Prix -->
+        <article class="masonry-item video-card wide reveal-scroll" data-src="assets/gallery-singapore-night.jpg"
+          data-category="FORMULA 1" data-location="Marina Bay Street Circuit, Singapore"
+          data-caption="Oracle Red Bull Racing charging under the night floodlights at Marina Bay" data-video="true"
+          data-duration="04:12">
+          <div class="masonry-img-wrapper">
+            <img src="assets/gallery-singapore-night.jpg" alt="Oracle Red Bull Racing Singapore Night Grand Prix"
+              loading="lazy">
+          </div>
+          <div class="video-play-badge" aria-label="Play video">
+            <span class="play-icon-glow">▶</span>
+            <span class="video-duration">04:12</span>
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">FORMULA 1</span>
+              <span class="masonry-location">📍 Marina Bay, Singapore</span>
+            </div>
+            <h4 class="masonry-title">Singapore Night Grand Prix</h4>
+            <span class="masonry-action-btn">WATCH NOW ▶</span>
+          </div>
+        </article>
+
+        <!-- 2. Surfing: Kai Lenny Giant Waves -->
+        <article class="masonry-item tall reveal-scroll delay-1" data-src="assets/athlete-lenny.jpg"
+          data-category="SURFING" data-location="Peʻahi (Jaws), Maui, Hawaii"
+          data-caption="Waterman Kai Lenny carving monstrous 80-foot Pacific walls at Peʻahi">
+          <div class="masonry-img-wrapper">
+            <img src="assets/athlete-lenny.jpg" alt="Kai Lenny surfing giant waves at Jaws" loading="lazy">
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">SURFING</span>
+              <span class="masonry-location">📍 Peʻahi, Maui, Hawaii</span>
+            </div>
+            <h4 class="masonry-title">Kai Lenny: Giant Waves</h4>
+            <span class="masonry-action-btn">READ MORE →</span>
+          </div>
+        </article>
+
+        <!-- 3. F1: Max Verstappen Pit Stop -->
+        <article class="masonry-item reveal-scroll delay-2" data-src="assets/gallery-pitstop.jpg"
+          data-category="FORMULA 1" data-location="Silverstone Circuit, UK"
+          data-caption="Oracle Red Bull Racing pit crew executing world-record precision tire change">
+          <div class="masonry-img-wrapper">
+            <img src="assets/gallery-pitstop.jpg" alt="Oracle Red Bull Racing Pit Stop" loading="lazy">
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">FORMULA 1</span>
+              <span class="masonry-location">📍 Silverstone, UK</span>
+            </div>
+            <h4 class="masonry-title">1.8-Second Sub-2 Pit Stop</h4>
+            <span class="masonry-action-btn">READ MORE →</span>
+          </div>
+        </article>
+
+        <!-- 4. Adventure Video Card 2: Red Bull Air Race -->
+        <article class="masonry-item video-card tall reveal-scroll" data-src="assets/gallery-air-race.jpg"
+          data-category="ADVENTURE" data-location="Abu Dhabi Corniche, UAE"
+          data-caption="High-G aerial slalom navigation between 25-meter inflatable pylons at 370 km/h"
+          data-video="true" data-duration="03:45">
+          <div class="masonry-img-wrapper">
+            <img src="assets/gallery-air-race.jpg" alt="Red Bull Air Race Abu Dhabi" loading="lazy">
+          </div>
+          <div class="video-play-badge" aria-label="Play video">
+            <span class="play-icon-glow">▶</span>
+            <span class="video-duration">03:45</span>
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">ADVENTURE</span>
+              <span class="masonry-location">📍 Abu Dhabi, UAE</span>
+            </div>
+            <h4 class="masonry-title">Red Bull Air Race</h4>
+            <span class="masonry-action-btn">WATCH NOW ▶</span>
+          </div>
+        </article>
+
+        <!-- 5. Music & Culture: Red Bull Dance Your Style -->
+        <article class="masonry-item reveal-scroll delay-1" data-src="assets/gallery-dance.jpg"
+          data-category="MUSIC &amp; CULTURE" data-location="Mumbai &amp; Paris World Final"
+          data-caption="All-styles street dancers electrifying the crowd with improvisational rhythm">
+          <div class="masonry-img-wrapper">
+            <img src="assets/gallery-dance.jpg" alt="Red Bull Dance Your Style Battle" loading="lazy">
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">MUSIC &amp; CULTURE</span>
+              <span class="masonry-location">📍 Mumbai &amp; Paris</span>
+            </div>
+            <h4 class="masonry-title">Red Bull Dance Your Style</h4>
+            <span class="masonry-action-btn">READ MORE →</span>
+          </div>
+        </article>
+
+        <!-- 6. F1: Oracle Red Bull Racing RB21 on Track -->
+        <article class="masonry-item reveal-scroll delay-2" data-src="assets/gallery-f1.jpg" data-category="FORMULA 1"
+          data-location="Yas Marina Circuit, Abu Dhabi"
+          data-caption="Oracle Red Bull Racing RB21 cutting high-speed corners in twilight testing">
+          <div class="masonry-img-wrapper">
+            <img src="assets/gallery-f1.jpg" alt="Oracle Red Bull Racing RB21 on track" loading="lazy">
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">FORMULA 1</span>
+              <span class="masonry-location">📍 Yas Marina, Abu Dhabi</span>
+            </div>
+            <h4 class="masonry-title">RB21 Apex Velocity</h4>
+            <span class="masonry-action-btn">READ MORE →</span>
+          </div>
+        </article>
+
+        <!-- 7. Skateboarding & BMX: Kriss Kyle BMX -->
+        <article class="masonry-item tall reveal-scroll" data-src="assets/athlete-kyle.jpg"
+          data-category="SKATEBOARDING &amp; BMX" data-location="Wiltshire Airspace, UK"
+          data-caption="BMX pioneer riding a skatepark bowl suspended 2,000 feet beneath a hot air balloon">
+          <div class="masonry-img-wrapper">
+            <img src="assets/athlete-kyle.jpg" alt="Kriss Kyle Don't Look Down BMX" loading="lazy">
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">SKATEBOARDING &amp; BMX</span>
+              <span class="masonry-location">📍 Wiltshire, UK</span>
+            </div>
+            <h4 class="masonry-title">Kriss Kyle: "Don't Look Down"</h4>
+            <span class="masonry-action-btn">READ MORE →</span>
+          </div>
+        </article>
+
+        <!-- 8. Adventure: Wingsuit Flying -->
+        <article class="masonry-item wide reveal-scroll delay-1" data-src="assets/gallery-wingsuit.jpg"
+          data-category="ADVENTURE" data-location="Swiss Alps, Switzerland"
+          data-caption="Proximity wingsuit pilot skimming limestone alpine ridge lines at 240 km/h">
+          <div class="masonry-img-wrapper">
+            <img src="assets/gallery-wingsuit.jpg" alt="Alpine Wingsuit Flying" loading="lazy">
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">ADVENTURE</span>
+              <span class="masonry-location">📍 Swiss Alps, Switzerland</span>
+            </div>
+            <h4 class="masonry-title">High-Altitude Wingsuit Flight</h4>
+            <span class="masonry-action-btn">READ MORE →</span>
+          </div>
+        </article>
+
+        <!-- 9. Surfing & Diving: Molly Carlson Cliff Diving -->
+        <article class="masonry-item tall reveal-scroll delay-2" data-src="assets/athlete-carlson.jpg"
+          data-category="CLIFF DIVING" data-location="Boston &amp; Mostar Bridge"
+          data-caption="Canadian cliff diving champion Molly Carlson descending 27 meters into the water">
+          <div class="masonry-img-wrapper">
+            <img src="assets/athlete-carlson.jpg" alt="Molly Carlson Cliff Diving" loading="lazy">
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">CLIFF DIVING</span>
+              <span class="masonry-location">📍 Mostar &amp; Boston</span>
+            </div>
+            <h4 class="masonry-title">Molly Carlson: 27m Freefall</h4>
+            <span class="masonry-action-btn">READ MORE →</span>
+          </div>
+        </article>
+
+        <!-- 10. Skateboarding & BMX: Red Bull Rampage -->
+        <article class="masonry-item reveal-scroll" data-src="assets/portal-adventure.jpg"
+          data-category="SKATEBOARDING &amp; BMX" data-location="Virgin, Utah, USA"
+          data-caption="Freeride mountain biker dropping vertical sandstone canyon cliffs in Utah">
+          <div class="masonry-img-wrapper">
+            <img src="assets/portal-adventure.jpg" alt="Red Bull Rampage Utah" loading="lazy">
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">SKATEBOARDING &amp; BMX</span>
+              <span class="masonry-location">📍 Virgin, Utah, USA</span>
+            </div>
+            <h4 class="masonry-title">Red Bull Rampage Drops</h4>
+            <span class="masonry-action-btn">READ MORE →</span>
+          </div>
+        </article>
+
+        <!-- 11. Adventure: Red Bull Cliff Diving World Series -->
+        <article class="masonry-item wide reveal-scroll delay-1" data-src="assets/gallery-cliff.jpg"
+          data-category="ADVENTURE" data-location="Polignano a Mare, Italy"
+          data-caption="World Series high diver executing reverse somersaults from 27m coastal cliffs">
+          <div class="masonry-img-wrapper">
+            <img src="assets/gallery-cliff.jpg" alt="Red Bull Cliff Diving World Series" loading="lazy">
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">ADVENTURE</span>
+              <span class="masonry-location">📍 Polignano a Mare, Italy</span>
+            </div>
+            <h4 class="masonry-title">Cliff Diving World Series</h4>
+            <span class="masonry-action-btn">READ MORE →</span>
+          </div>
+        </article>
+
+        <!-- 12. Music & Culture: Red Bull 64 Bars -->
+        <article class="masonry-item tall reveal-scroll delay-2" data-src="assets/story-64-bars.jpg"
+          data-category="MUSIC &amp; CULTURE" data-location="Red Bull Music Studios"
+          data-caption="One microphone, zero chorus, 64 bars of pure lyrical rhythm and vocal prowess">
+          <div class="masonry-img-wrapper">
+            <img src="assets/story-64-bars.jpg" alt="Red Bull 64 Bars Studio Booth" loading="lazy">
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">MUSIC &amp; CULTURE</span>
+              <span class="masonry-location">📍 Red Bull Music Studios</span>
+            </div>
+            <h4 class="masonry-title">Red Bull 64 Bars Cypher</h4>
+            <span class="masonry-action-btn">READ MORE →</span>
+          </div>
+        </article>
+
+        <!-- 13. F1: Championship Victory Celebration -->
+        <article class="masonry-item reveal-scroll" data-src="assets/gallery-f1-victory.jpg" data-category="FORMULA 1"
+          data-location="Sepang &amp; Red Bull Ring"
+          data-caption="Championship podium victory celebration with champagne and team trophy">
+          <div class="masonry-img-wrapper">
+            <img src="assets/gallery-f1-victory.jpg" alt="Formula 1 Victory Celebration" loading="lazy">
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">FORMULA 1</span>
+              <span class="masonry-location">📍 Sepang International</span>
+            </div>
+            <h4 class="masonry-title">Victory Celebration</h4>
+            <span class="masonry-action-btn">READ MORE →</span>
+          </div>
+        </article>
+
+        <!-- 14. Skateboarding & BMX: Red Bull Bowl Rippers -->
+        <article class="masonry-item reveal-scroll delay-1" data-src="assets/gallery-bowl-rippers.jpg"
+          data-category="SKATEBOARDING &amp; BMX" data-location="Plage du Prado, Marseille, France"
+          data-caption="Heavy transition air tricks over the Prado deep bowl coping at sunset">
+          <div class="masonry-img-wrapper">
+            <img src="assets/gallery-bowl-rippers.jpg" alt="Red Bull Bowl Rippers Marseille" loading="lazy">
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">SKATEBOARDING &amp; BMX</span>
+              <span class="masonry-location">📍 Marseille, France</span>
+            </div>
+            <h4 class="masonry-title">Red Bull Bowl Rippers</h4>
+            <span class="masonry-action-btn">READ MORE →</span>
+          </div>
+        </article>
+
+        <!-- 15. Music & Culture Video Card 3: Red Bull BC One World Final -->
+        <article class="masonry-item video-card wide reveal-scroll delay-2" data-src="assets/story-flying-machine.jpg"
+          data-category="MUSIC &amp; CULTURE" data-location="Tokyo Cypher, Japan"
+          data-caption="Elite b-boys and b-girls clashing in 1-on-1 knockout cypher battles for the world belt"
+          data-video="true" data-duration="06:30">
+          <div class="masonry-img-wrapper">
+            <img src="assets/story-flying-machine.jpg" alt="Red Bull BC One World Final Breaking" loading="lazy">
+          </div>
+          <div class="video-play-badge" aria-label="Play video">
+            <span class="play-icon-glow">▶</span>
+            <span class="video-duration">06:30</span>
+          </div>
+          <div class="masonry-hover-curtain">
+            <div class="masonry-meta-row">
+              <span class="masonry-tag">MUSIC &amp; CULTURE</span>
+              <span class="masonry-location">📍 Tokyo, Japan</span>
+            </div>
+            <h4 class="masonry-title">Red Bull BC One World Final</h4>
+            <span class="masonry-action-btn">WATCH NOW ▶</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Lightbox Modal -->
+  <div class="gallery-lightbox-overlay" id="gallery-lightbox" aria-hidden="true">
+    <button class="lightbox-close-btn" id="lightbox-close" aria-label="Close image viewer">✕</button>
+    <button class="lightbox-nav-btn prev" id="lightbox-prev" aria-label="Previous image">‹</button>
+    <div class="lightbox-image-container">
+      <div class="lightbox-media-wrapper">
+        <img src="" alt="Expanded Red Bull visual" class="lightbox-active-img" id="lightbox-img">
+        <div class="lightbox-video-indicator" id="lightbox-video-indicator" style="display: none;">
+          <span class="lightbox-play-circle">▶</span>
+          <span class="lightbox-video-tag">RED BULL MEDIA HOUSE • 4K STREAM</span>
+        </div>
+      </div>
+      <div class="lightbox-meta-info">
+        <div class="lightbox-category-tag" id="lightbox-category">FORMULA 1</div>
+        <div class="lightbox-caption-bar" id="lightbox-caption">Photo Caption</div>
+        <div class="lightbox-location-tag" id="lightbox-location">📍 Marina Bay, Singapore</div>
+      </div>
+    </div>
+    <button class="lightbox-nav-btn next" id="lightbox-next" aria-label="Next image">›</button>
+  </div>
+
+  <!-- Smooth Section Flow Transition -->
+  <div class="section-flow-transition" aria-hidden="true">
+    <div class="flow-transition-gradient"></div>
+    <div class="flow-transition-radial"></div>
+    <div class="flow-transition-bloom"></div>
+    <div class="flow-transition-beam"></div>
+  </div>
+
+  <!-- ==========================================================================
+       SECTION 8: FOOTER — OFFICIAL RED BULL EDITORIAL FOOTER
+       ========================================================================== -->
+  <footer class="paddock-footer">
+    <div class="container footer-shell">
+      <div class="footer-primary-grid">
+
+        <!-- Left Column: Brand Identity -->
+        <div class="footer-brand-col">
+          <div class="brand-bulls-logo footer-logo">
+            <svg viewBox="0 0 100 56" fill="none" width="48" height="27">
+              <circle cx="50" cy="28" r="22" fill="#FFB800" />
+              <path
+                d="M12 36C18 36 24 33 28 29C33 24 38 23 44 26C42 21 37 17 31 16C24 15 19 18 15 22C11 25 8 28 4 29C7 31 10 33 12 36Z"
+                fill="#E10600" />
+              <path
+                d="M88 36C82 36 76 33 72 29C67 24 62 23 56 26C58 21 63 17 69 16C76 15 81 18 85 22C89 25 92 28 96 29C93 31 90 33 88 36Z"
+                fill="#E10600" />
+            </svg>
+          </div>
+          <span class="footer-brand-title">RED BULL</span>
+          <span class="footer-brand-tagline">Gives You Wings.</span>
+          <p class="footer-brand-deck">
+            Explore Formula 1, athletes, energy drinks, events, stories and Red Bull TV in one immersive experience.
+          </p>
+        </div>
+
+        <!-- Explore Column -->
+        <div class="footer-nav-col">
+          <span class="footer-col-header">Explore</span>
+          <ul class="footer-links">
+            <li class="footer-link-item"><a href="#hero">Formula 1</a></li>
+            <li class="footer-link-item"><a href="#energy-drinks">Energy Drinks</a></li>
+            <li class="footer-link-item"><a href="#stories">Stories</a></li>
+            <li class="footer-link-item"><a href="#events">Events</a></li>
+            <li class="footer-link-item"><a href="#athletes">Athletes</a></li>
+            <li class="footer-link-item"><a href="#gallery">Gallery</a></li>
+          </ul>
+        </div>
+
+        <!-- Energy Drinks Column -->
+        <div class="footer-nav-col">
+          <span class="footer-col-header">Energy Drinks</span>
+          <ul class="footer-links">
+            <li class="footer-link-item"><a href="#energy-drinks">Red Bull Original</a></li>
+            <li class="footer-link-item"><a href="#energy-drinks">Red Bull Sugarfree</a></li>
+            <li class="footer-link-item"><a href="#energy-drinks">Red Bull Zero</a></li>
+            <li class="footer-link-item"><a href="#energy-drinks">Pink Edition (Peach)</a></li>
+            <li class="footer-link-item"><a href="#energy-drinks">Yellow Edition (Tropical)</a></li>
+            <li class="footer-link-item"><a href="#energy-drinks">Red Edition (Watermelon)</a></li>
+            <li class="footer-link-item"><a href="#energy-drinks">Green Edition (Curuba)</a></li>
+          </ul>
+        </div>
+
+        <!-- World of Red Bull Column -->
+        <div class="footer-nav-col">
+          <span class="footer-col-header">World of Red Bull</span>
+          <ul class="footer-links">
+            <li class="footer-link-item"><a href="https://www.redbull.tv" target="_blank" rel="noopener">Red Bull TV</a>
+            </li>
+            <li class="footer-link-item"><a href="#hero">Oracle Red Bull Racing</a></li>
+            <li class="footer-link-item"><a href="#events">Red Bull Cliff Diving World Series</a></li>
+            <li class="footer-link-item"><a href="#events">Red Bull Dance Your Style</a></li>
+            <li class="footer-link-item"><a href="#events">Wings for Life World Run</a></li>
+            <li class="footer-link-item"><a href="#gallery">Red Bull BC One</a></li>
+          </ul>
+        </div>
+
+        <!-- Follow Red Bull Column with Minimalist Icons -->
+        <div class="footer-nav-col">
+          <span class="footer-col-header">Follow Red Bull</span>
+          <ul class="footer-social-links">
+            <li class="footer-social-item">
+              <a href="https://instagram.com/redbull" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                <span>Instagram</span>
+              </a>
+            </li>
+            <li class="footer-social-item">
+              <a href="https://youtube.com/redbull" target="_blank" rel="noopener" aria-label="YouTube">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z">
+                  </path>
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"></polygon>
+                </svg>
+                <span>YouTube</span>
+              </a>
+            </li>
+            <li class="footer-social-item">
+              <a href="https://x.com/redbull" target="_blank" rel="noopener" aria-label="X">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+                <span>X</span>
+              </a>
+            </li>
+            <li class="footer-social-item">
+              <a href="https://tiktok.com/@redbull" target="_blank" rel="noopener" aria-label="TikTok">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.47 6.27 6.27 0 0 0 1.86-4.47V8.58a8.27 8.27 0 0 0 4.84 1.56V6.69h-.93z" />
+                </svg>
+                <span>TikTok</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Legal Bar -->
+      <div class="footer-bottom-deck">
+        <div class="footer-copyright">
+          © 2026 Red Bull GmbH. All Rights Reserved.
+        </div>
+        <div class="footer-legal-row">
+          <a href="#">Privacy Policy</a>
+          <span class="dot">•</span>
+          <a href="#">Terms &amp; Conditions</a>
+          <span class="dot">•</span>
+          <a href="#">Cookie Settings</a>
+          <span class="dot">•</span>
+          <a href="#">Brand Protection</a>
+        </div>
+        <div class="footer-disclaimer-note">
+          This website is a UI recreation created for educational and portfolio purposes.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Motion Animation Engine (Framer Motion vanilla / Motion One) -->
+  <script src="https://cdn.jsdelivr.net/npm/motion@10.18.0/dist/motion.umd.js"></script>
+  <!-- Core Interactive Script -->
+  <script src="script.js"></script>
+</body>
+
+</html>
